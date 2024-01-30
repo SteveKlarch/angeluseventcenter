@@ -1,0 +1,235 @@
+.intro {
+
+    position: relative;
+    z-index: 0;
+    @include principalBox;
+
+    &__maktub {
+
+        position: absolute;
+        z-index: 0;
+        top: 60%;
+        right: 1%;
+        
+        @media(min-width: 1366px) {
+
+            top: 20%;
+
+        }
+
+    }
+
+    &__info {
+
+        @include secondBox;
+        align-items: flex-start;
+
+        &-page {
+
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            &-vestido {
+
+                @include icon;
+
+            }
+
+            &-encabezado {
+                @include encabezado;
+            }
+
+            &-frase {
+                @include frase;
+            }
+
+            &-article {
+                @include article;
+            }
+
+        }
+
+        &-confeccionados {
+            width: 90%;
+            margin: 0 auto;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+    
+            &-title {
+                text-align: center;
+                @include subencabezado;
+
+            }
+    
+            &-paises {
+                width: 90%;
+                margin: 0 auto;
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+    
+                &-pais {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 10px;
+    
+                    & > span {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
+
+    }
+
+    &__fotos {
+
+        @include frame;
+
+        &-article {
+
+            position: relative;
+            border-radius: 20px;
+            box-shadow: 3px 4px 6px #0f0e0f;
+            @include levitate;
+            animation-duration: 6s;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            // Cards
+
+            &--fiesta {
+                width: 255px;
+                height: 420px;
+                z-index: 2;
+                top: calc(50% - 380px);
+                left: calc(50% - 143px);
+            }
+
+            &--novia {
+                width: 195px;
+                height: 280px;
+                z-index: 3;
+                top: calc(-15%);
+                left: calc(50% - 40px);
+                animation-delay: .5s;
+
+                @media(min-width: 400px) {
+                    left: calc(50% - 20px);
+                }
+
+                @media(min-width: 1366px) {
+                    left: calc(50% - 30px);
+                }
+            }
+
+            &--quince {
+                width: 195px;
+                height: 280px;
+                z-index: 2;
+                top: -30%;
+                left: calc(50% - 155px);
+                animation-delay: 1s;
+
+                @media(min-width: 400px) {
+                    top: -35%;
+                    left: calc(50% - 175px);
+                }
+
+                @media(min-width: 1366px) {
+                    left: calc(50% - 255px);
+                }
+            }
+
+            // Fotos
+
+            &-picture {
+
+                position: relative;
+                width: 100%;
+                height: 100%;
+
+                & > img {
+                    position: absolute;
+                    z-index: 1;
+                    top: 0;
+                    left: 0;
+                    object-fit: cover;
+                    filter: contrast(1);
+                }
+
+                &--fiesta > img {
+                    position: absolute;
+                    width: 255px;
+                    height: 420px;
+                    border-radius: 20px;
+                }
+
+                &--novia > img {
+                    position: absolute;
+                    width: 195px;
+                    height: 280px;
+                    border-radius: 20px;
+                }
+
+                &--quince > img {
+                    position: absolute;
+                    width: 195px;
+                    height: 280px;
+                    border-radius: 20px;
+                }
+
+            }
+
+            &-info {
+                position: relative;
+                z-index: 3;
+                width: 100%;
+                height: 100%;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                gap: 10px;
+
+                & > span {
+                    display: inline-block;
+                    @include titleCard;
+                }
+
+                & > a {
+                    @include buttonCard;
+                }
+
+                &--fiesta {
+                    justify-content: center;
+                }
+            }
+
+            &-curtain {
+
+                position: absolute;
+                z-index: 2;
+                top: calc(30%);
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 19px;
+                background: linear-gradient(0deg, #181718, transparent);
+
+                &--fiesta {
+                    top: calc(30%);
+                }
+
+            }
+
+        }
+    }
+
+}

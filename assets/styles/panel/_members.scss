@@ -1,0 +1,30 @@
+.new-member {
+    position: fixed;
+    top: 0;
+    left: 100%;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+
+    &--show {
+        animation-name: showSlide;
+        animation-duration: 1s;
+        animation-timing-function: cubic-bezier(.26,0,0,.99);
+        animation-fill-mode: forwards;
+        animation-iteration-count: 1;
+    }
+
+    @keyframes showSlide {
+        0% {
+            left: 100%;
+        } 100% {
+            left: 0;
+        }
+    }
+
+}

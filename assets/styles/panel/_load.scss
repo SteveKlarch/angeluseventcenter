@@ -1,0 +1,23 @@
+.load-item {
+
+    display: inline-block;
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgb(230, 230, 230);
+    animation-name: oscile;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.39,0,.58,1);
+    animation-iteration-count: infinite;
+
+}
+
+@keyframes oscile {
+    0% {
+        opacity: 1;
+    } 50% {
+        opacity: 0;
+    } 100% {
+        opacity: 1;
+    }
+}

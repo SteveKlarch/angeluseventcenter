@@ -1,0 +1,21 @@
+@keyframes opacityDiferencial {
+    0% {
+        opacity: 1;
+    } 50% {
+        opacity: .8;
+    } 100% {
+        opacity: 1;
+    }   
+}
+
+@keyframes showInterface {
+    100% {
+        left: 0;
+    }
+}
+
+@keyframes removeInterface {
+    100% {
+        left: 100%;
+    }
+}

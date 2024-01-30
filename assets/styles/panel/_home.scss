@@ -1,0 +1,350 @@
+.team-home {
+
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    min-width: 320px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__galery {
+        width: 100%;
+        margin: 0 auto;
+        padding: 25px 0;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+        overflow: hidden;
+        filter: blur(.1rem);
+
+        &-picture {
+            position: relative;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            & > img {
+                display: inline-block;
+                border-radius: 10px;
+                width: 200px;
+                height: auto;
+                object-fit: contain;
+            }
+
+            &--one {
+                @include verticalSlide;
+            }
+
+            &--two {
+                @include verticalSlide;
+                animation-direction: reverse;
+            }
+
+            &--three {
+                @include verticalSlide;
+            }
+
+            &--four {
+                @include verticalSlide;
+                animation-direction: reverse;
+            }
+
+            &--five {
+                @include verticalSlide;
+            }
+
+            &--six {
+                @include verticalSlide;
+                animation-direction: reverse;
+            }
+        }
+    }
+
+    &__form {
+
+        position: relative;
+        z-index: 2;
+        width: 90%;
+        max-width: 500px;
+        height: 100vh;
+        margin: 0 auto;
+        opacity: .9;
+        background-color: white;
+
+        &-logo {
+            display: inline-block;
+            width: 90%;
+            max-width: 300px;
+            height: auto;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+
+        &-perse {
+            width: 90%;
+            height: 100vh;
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 30px;
+
+            &-label {
+                width: 100%;
+                height: auto;
+                display: flex;
+
+                & > input {
+                    width: 100%;
+                    margin: 0 auto;
+                    border: solid 2px #E0E0E0;
+                    border-radius: 10px;
+                    padding: 5px 10px;
+                    @include input;
+
+                    &:hover {
+                        border: solid 2px #c7c7c7;
+                        // box-shadow: 1px 1px 3px #b1b1b1;
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+            }
+
+            &--button {
+
+                @include button;
+                border: none;
+                border-radius: 10px;
+                padding: 5px;
+                background-color: #D7A64F;
+                color: white;
+                text-align: center;
+                transition: transform .3s cubic-bezier(.45,0,0,1);
+                @include input;
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                &-tap {
+                    transform: scale(1.005);
+                }
+
+            }
+
+            &-input {
+
+                display: none;
+
+                & + &-label {
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    height: auto;
+                    gap: 10px;
+
+                    &:before {
+                        display: inline-block;
+                        content: "";
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 15px;
+                        border: 1px solid rgb(172, 172, 172);
+                        background-color: rgb(236, 236, 236);
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+
+                }
+
+                &:checked + &-label:before {
+
+                    border: 1px solid white;
+                    background-color: rgb(58, 137, 255);
+
+                }
+
+            }
+
+            &--remember > span {
+
+                display: inline-block;
+                width: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                text-align: center;
+                font-size: 1.4rem;
+                font-weight: 500;
+                font-family: 'Work Sans', sans-serif;
+
+            }
+
+            &--forget {
+                width: 100%;
+                margin: 0 auto;
+                text-align: center;
+                font-size: 1.4rem;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 600;
+                text-decoration: underline 1px;
+                color: #80622F;
+
+                @media(min-width: 1366px) {
+                    font-size: 1.6rem;
+                }
+            }
+
+            &-message {
+                display: inline-block;
+                width: 100%;
+                font-size: 1.3rem;
+                font-weight: 400;
+                font-family: 'Work Sans', sans-serif;
+                color: rgb(216, 76, 76);
+                text-align: center;
+            }
+
+        }
+
+        @media(min-width: 1366px) {
+
+            max-width: 40vw;
+            height: 100vh;
+            border-radius: 0;
+            box-shadow: none;
+
+        }
+
+    }
+
+    &__curtain {
+
+        position: fixed;
+        z-index: 8;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+        background-color: white;
+        gap: 10px;
+        line-height: 2rem;
+        opacity: .9;
+        color: #1E3050;
+
+        & > i {
+            font-size: 3rem;
+        }
+
+        & > span {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        &--opacity {
+            opacity: 1;
+        }
+
+    }
+
+    &__init {
+        position: fixed;
+        z-index: 9;
+        bottom: 0;
+        left: 100%;
+        top: 0;
+        right: 0;
+        background-color: white;
+
+        &--go {
+            animation-name: leftPosition;
+            animation-timing-function: cubic-bezier(.38,.05,0,1);
+            animation-fill-mode: forwards;
+            animation-iteration-count: 1;
+            animation-duration: 1s;
+        }   
+
+    }
+
+}
+
+// Animaciones del team home curtain
+
+.magic {
+    animation-name: magic;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(.36,.1,0,1);
+    animation-iteration-count: 2;
+}
+
+.scale {
+    animation-name: scaleZ;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(.36,.1,0,1);
+    animation-iteration-count: 2;
+}
+
+@keyframes magic {
+    0% {
+        rotate: -15deg;
+    } 20% {
+        rotate: 15deg;
+    } 40% {
+        rotate: -15deg;
+    } 60% {
+        rotate: 15deg;
+    } 80% {
+        rotate: -15deg;
+    } 100% {
+        rotate: 0;
+    }
+}
+
+@keyframes scaleZ {
+    0% {
+        scale: scale(1.01);
+    } 20% {
+        scale: scale(9.09);
+    } 40% {
+        scale: scale(1.01);
+    } 60% {
+        scale: scale(9.09);
+    } 80% {
+        scale: scale(1.01);
+    } 100% {
+        scale: 1;
+    }
+}
+
+@keyframes leftPosition {
+
+    100% {
+        left: 0;
+    }
+    
+}

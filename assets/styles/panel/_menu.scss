@@ -1,0 +1,204 @@
+.member-menu {
+    position: fixed;
+    z-index: 5;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-width: 320px;
+    height: auto;
+    background-color: white;
+
+    &--mobile {
+
+        width: 100%;
+
+        &-ul {
+            width: 90%;
+            height: auto;
+            margin: 0 auto;
+            padding: 10px 0;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+            &-li {
+                display: inline-block;
+                list-style: none;
+
+                & > a > img {
+
+                    display: inline-block;
+                    width: 40px;
+                    height: auto;
+                    object-fit: contain;
+
+                }
+
+            }
+        }
+    }
+
+    &--up {
+        animation-name: menuUp;
+        animation-duration: 1.2s;
+        animation-timing-function: cubic-bezier(.44,.29,.27,1);
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes menuUp {
+        100% {
+            bottom: 0;
+        }
+    }
+
+}
+
+.control-panel {
+
+    position: fixed;
+    z-index: 7;
+    top: 0;
+    bottom: 0;
+    width: 70vw;
+    max-width: 280px;
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    background-color: white;
+    box-shadow: 2px 0px 6px black;
+    gap: 20px;
+
+    &__item {
+
+        display: flex;
+        justify-content: flex-end;
+        font-family: 'Work Sans', sans-serif;
+        color: #1E3050;
+        
+        & > h3 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        & > button {
+            display: flex;
+            width: 100%;
+            max-width: 130px;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 2rem;
+            font-family: 'Work Sans', sans-serif;
+            border: none;
+            background-color: white;
+            color: #1E3050;
+            font-weight: 600;
+            text-align: right;
+
+            & > i {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
+
+    }
+
+    &--slide {
+        animation-name: slide;
+        animation-duration: .5s;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(.38,.09,.34,.99);
+    }
+
+    @keyframes slide {
+
+        0% {
+            left: -100%;
+        } 100% {
+            left: 0;
+        }
+        
+    }
+
+}
+
+.curtain-panel {
+    position: absolute;
+    z-index: 6;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: black;
+    opacity: .6;
+}
+
+// Efectos
+
+// Efecto para presionar
+
+.tap {
+    animation-name: tap;
+    animation-duration: .5s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+.button-tap {
+    animation-name: buttontap;
+    animation-duration: .1s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+.spin {
+
+    animation-name: spin;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(.38,.09,.36,1.2);
+    animation-fill-mode: forwards;
+
+}
+
+@keyframes tap {    
+    0% {
+        scale: 1;
+    } 20% {
+        scale: .9;
+    } 40% {
+        scale: 1;
+    } 60% {
+        scale: .95;
+    } 100% {
+        scale: 1;
+    }
+}
+
+@keyframes spin {
+    0% {
+        rotate: 0deg;
+        scale: 1;
+    } 20% {
+        scale: .9;
+    } 40% {
+        scale: 1;
+    } 60% {
+        scale: .95;
+    } 100% {
+        rotate: 360deg;
+        scale: 1;
+    }  
+}
+
+@keyframes buttontap {
+    0% {
+        scale: 1;
+    } 50% {
+        scale: .98;
+    } 100% {
+        scale: 1;
+    }
+}

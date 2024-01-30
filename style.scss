@@ -1,5 +1,20 @@
-@import './assets/styles/variables';
-@import './assets/styles/mixins';
+/*
+Theme Name: Angelus Centro D' Eventos
+Theme URI: https://angeluscentrodeventos.com
+Author: DiegoWDeveloper
+Author URI: https://github.com/SteveKlarch
+Description: Angelus Centro D' Eventos, el lugar en la web donde los sueños de amor se hacen realidad.
+Tags: Angelus, tienda, store, boutique
+Version: 1.0
+Requires at least: 5.0
+Tested up to: 5.4
+Requires PHP: 7.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: angeluscentrodeventos
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
 
 * {
     margin: 0;
@@ -10,3 +25,26 @@
 html {
     font-size: 62.5%;
 }
+
+body {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    min-width: 320px;
+    height: auto;
+    min-height: 100vh;
+}
+
+@import './assets/styles/variables';
+@import './assets/styles/mixins';
+
+// Front Pages Styles
+
+@import './assets/styles/front/home';
+@import './assets/styles/front/intro';
+@import './assets/styles/front/eventos';
+@import './assets/styles/front/revista';
+@import './assets/styles/front/footer';
+
+@import './assets/styles/keyframes';
+
