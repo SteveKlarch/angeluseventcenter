@@ -84,11 +84,70 @@ add_action('after_setup_theme', function() {
 
 add_action('init', function() {
 
+    $roles = array(
+        [
+            'role'          => 'gestor',
+            'display'       => 'Gestor de la tienda',
+            'capabilities'  => array(
+                'delete_posts'           => true,
+                'delete_private_posts'   => true,
+                'delete_published_posts' => true,
+                'edit_posts'             => true,
+                'edit_other_posts'       => true,
+                'manage_categories'      => true,
+                'publish_posts'          => true
+            )
+        ],
+        [
+            'role'          => 'ejecutivo',
+            'display'       => 'Ejecutivo de venta',
+            'capabilities'  => array(
+                'delete_posts'           => true,
+                'delete_private_posts'   => true,
+                'delete_published_posts' => true,
+                'edit_posts'             => true,
+                'edit_other_posts'       => true,
+                'manage_categories'      => true,
+                'publish_posts'          => true,
+                'edit_pages'             => true,
+                'publish_pages'          => true
+            )
+        ],
+        [
+            'role'          => 'planificador',
+            'display'       => 'Planificador de los eventos',
+            'capabilities'  => array(
+                'delete_posts'           => true,
+                'delete_private_posts'   => true,
+                'delete_published_posts' => true,
+                'edit_posts'             => true,
+                'edit_other_posts'       => true,
+                'manage_categories'      => true,
+                'publish_posts'          => true,
+                'edit_pages'             => true,
+                'publish_pages'          => true
+            )
+        ],
+        [
+            'role'          => 'ejecutivo',
+            'display'       => 'Ejecutivo de venta',
+            'capabilities'  => array(
+                'delete_posts'           => true,
+                'delete_private_posts'   => true,
+                'delete_published_posts' => true,
+                'edit_posts'             => true,
+                'edit_other_posts'       => true,
+                'manage_categories'      => true,
+                'publish_posts'          => true,
+                'edit_pages'             => true,
+                'publish_pages'          => true
+            )
+        ]
+    );
+
+    aec_add_role($roles);
+
 }); 
-
-add_action('init', function() {
-
-});
 
 add_action('rest_api_init', function() {
 
@@ -239,13 +298,13 @@ function new_member($request) {
     );
 
     if($role == 'gestor') {
-        $newUser['role'] = ;
+        // $newUser['role'] = ;
     } else if($role == 'ejecutivo') {
-        $newUser['role'] = ;
+        // $newUser['role'] = ;
     } else if($role == 'planificador') {
-        $newUser['role'] = ;
+        // $newUser['role'] = ;
     } else {
-        $newUser['role'] = ;
+        // $newUser['role'] = ;
     }
 
     $newUser = wp_insert_user($newUser);
@@ -266,6 +325,18 @@ function assignCredentials($role) {
         
 
     );
+
+}
+
+// Funcionalidades
+
+function aec_add_role($roles) {
+
+    foreach($roles as $role) {
+
+        add_role($role['role'], $role['display'], $role['capabilities']);
+
+    }
 
 }
 
