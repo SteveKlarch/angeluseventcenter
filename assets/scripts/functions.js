@@ -195,11 +195,10 @@ function showStorePanel() {
 
 function showInterface(value) {
 
-    createElement('section', 'interface', 'interface', '');
+    createElement('section', 'interface', 'interface', '<div class="interface__loader" id="new-member-loader"></div>');
     document.getElementById('interface').classList.add('interface--show');
-    setTimeout(() => {
-        interfaceView(value, 'interface');
-    }, 500);
+    createElement('div', '', '', '', document.getElementById('interface'));
+    window.location.assign(`${object.url_home}/create?type=${value}`);
 
 }
 
@@ -232,50 +231,53 @@ function interfaceView(type, fatherInterfaceID) {
     } else if(type == 'miem') {
 
         let bodyMember = `
+
+            <label class="interface__new-member-form-label" for="member-name"></label>
+            <input class="interface__new-member-form-input--name" id="member-name" placeholder="Nombre del nuevo miembro" name="member[name]" type="text" />
         
-            <h1 class="interface__new-member-title">Crear miembro</h1>
+            <label class="interface__new-member-form-label" for="member-email"></label>
+            <span class="interface__new-member-form-span">Email</span>
+            <input class="interface__new-member-form-input" id="member-email" name="member[email]" placeholder="example@example.com" type="email" />
 
-            <form class="interface__new-member-form" action="./" method="post">
+            <label class="interface__new-member-form-label" for="member-password"></label>
+            <span class="interface__new-member-form-span">Contraseña</span>
 
-                <label class="interface__new-member-form-label" for="member-name"></label>
-                <input class="interface__new-member-form-input--name" id="member-name" placeholder="Nombre del nuevo miembro" name="member[name]" type="text" />
+            <div class="interface__new-member-form-superlabel">
+                <input class="interface__new-member-form-superlabel-input" id="member-password" placeholder="coloca una contraseña aquí" name="member[password]" type="password" />
+                <i id="reveal" class="fa-solid fa-eye"></i>
+            </div>
+
+            <label for="member-role" class="interface__new-member-form-label"></label>
+            <span class="interface__new-member-form-span">¿Cuál será el rol del nuevo miembro?</span>
+            <input list="member-roles" id="member-role" name="member[role]" class="interface__new-member-form-input" placeholder="elije un rol aquí" />
+
+            <datalist id="member-roles">
+                <option value="administrador"></option>
+                <option value="gestor"></option>
+                <option value="ejecutivo"></option>
+                <option value="planificador"></option>
+                <option value="">anunciante</option>
+            </datalist>
+
+            <button type="submit" id="create-new-member" class="interface__new-member-form-button">Crear miembro</button>
             
-                <label class="interface__new-member-form-label" for="member-email"></label>
-                <span class="interface__new-member-form-span">Email</span>
-                <input class="interface__new-member-form-input" id="member-email" name="member[email]" placeholder="example@example.com" type="email" />
-
-                <label class="interface__new-member-form-label" for="member-password"></label>
-                <span class="interface__new-member-form-span">Contraseña</span>
-
-                <div class="interface__new-member-form-superlabel">
-                    <input class="interface__new-member-form-superlabel-input" id="member-password" placeholder="coloca una contraseña aquí" name="member[password]" type="password" />
-                    <i id="reveal" class="fa-solid fa-eye"></i>
-                </div>
-
-                <label for="member-role" class="interface__new-member-form-label"></label>
-                <span class="interface__new-member-form-span">¿Cuál será el rol del nuevo miembro?</span>
-                <input list="member-roles" id="member-role" name="member[role]" class="interface__new-member-form-input" placeholder="elije un rol aquí" />
-
-                <datalist id="member-roles">
-                    <option value="administrador"></option>
-                    <option value="gestor"></option>
-                    <option value="ejecutivo"></option>
-                    <option value="planificador"></option>
-                    <option value="">anunciante</option>
-                </datalist>
-
-                <button type="submit" class="interface__new-member-form-button">Crear miembro</button>
-
-                <button id="new-member-back-button" class="interface__new-member-form-back">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
-            
-            </form>
+            <button type="button" id="new-member-back-button" class="interface__new-member-back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
         
         `;
 
-        createElement('div', 'interface__new-member', 'new-member', bodyMember, document.getElementById(fatherInterfaceID));
+        createElement('div', 'interface__new-member', 'new-member', '', document.getElementById(fatherInterfaceID));
+        createElement('h1', 'interface__new-member-title', '', 'Crear miembro', document.getElementById('new-member'));
+        const form = document.createElement('form');
+        form.setAttribute('action', './');
+        form.setAttribute('method', 'post');
+        form.setAttribute('id', 'member-form');
+        form.setAttribute('class', 'interface__new-member-form');
+        form.innerHTML = bodyMember;
+        document.getElementById('new-member').appendChild(form);
         memberInputs('member-password' , 'reveal');
+        next('new-member', 'member-form');
 
     } else {
 
@@ -487,6 +489,18 @@ function memberInputs(inputID, itemID) {
         e.preventDefault();
 
             document.getElementById('interface').remove();
+    });
+
+}
+
+function next(fatherID, formID) {
+
+    const newMemberForm = document.getElementById(formID);
+
+    newMemberForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        console.log(e);
     });
 
 }

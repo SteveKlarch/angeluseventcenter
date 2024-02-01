@@ -32,6 +32,7 @@ add_action('wp_enqueue_scripts', function() {
     wp_enqueue_script('route', get_stylesheet_directory_uri() . '/assets/scripts/route.js', array('functions'), false, true);
     wp_enqueue_script('interfaces', get_stylesheet_directory_uri() . '/assets/scripts/interfaces.js', array('functions'), false, true);
     wp_enqueue_script('logout', get_stylesheet_directory_uri() . '/assets/scripts/logout.js', array('functions'), false, true);
+    wp_enqueue_script('create', get_stylesheet_directory_uri() . '/assets/scripts/create.js', array('functions'), false, true);
 
 });
 
@@ -42,7 +43,7 @@ add_action('wp_enqueue_scripts', function() {
     wp_localize_script('functions', 'object', array(
         'url_home'      => home_url(),
         'url_api'       => home_url('wp-json'),
-        'url_team'    => home_url('team')    
+        'url_team'      => home_url('team')
     ));
 
     // Localizador de funciones registradas

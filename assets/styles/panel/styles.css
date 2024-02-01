@@ -1011,11 +1011,11 @@
   height: auto;
   border: solid 1px #CFDAE5;
   border-radius: 5px 5px 0 0;
-  padding: 5px 10px;
+  padding: 5px 15px;
   text-align: center;
   background-color: #c2d1e0;
   font-family: "Montserrat", sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #3D464F;
 }
@@ -1049,10 +1049,10 @@
   display: inline-block;
   border: none;
   border-radius: 5px;
-  padding: 5px 15px;
+  padding: 8px 20px;
   background-color: #18B239;
   color: white;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 500;
   font-family: "Montserrat", sans-serif;
   text-align: center;
@@ -1272,6 +1272,7 @@
 }
 .interface__new-member {
   position: relative;
+  left: 0;
   z-index: 8;
   width: 100%;
   height: auto;
@@ -1396,8 +1397,19 @@
   font-weight: 500;
   font-size: 1.5rem;
   background-color: #998D5D;
+  -webkit-transition: -webkit-transform 0.5s linear cubic-bezier(0.29, 0, 0.29, 1);
+  transition: -webkit-transform 0.5s linear cubic-bezier(0.29, 0, 0.29, 1);
+  transition: transform 0.5s linear cubic-bezier(0.29, 0, 0.29, 1);
+  transition: transform 0.5s linear cubic-bezier(0.29, 0, 0.29, 1), -webkit-transform 0.5s linear cubic-bezier(0.29, 0, 0.29, 1);
 }
-.interface__new-member-form-back {
+.interface__new-member-form-button:hover {
+  outline: none;
+}
+.interface__new-member-form-button:active {
+  -webkit-transform: scale(0.98);
+          transform: scale(0.98);
+}
+.interface__new-member-back {
   position: fixed;
   z-index: 3;
   left: 0;
@@ -1417,7 +1429,7 @@
       -ms-flex-align: center;
           align-items: center;
 }
-.interface__new-member-form-back > i {
+.interface__new-member-back > i {
   display: inline-block;
   color: white;
   font-size: 3rem;
@@ -1426,9 +1438,25 @@
   transition: transform 0.25s cubic-bezier(0.07, 0.44, 0.28, 1);
   transition: transform 0.25s cubic-bezier(0.07, 0.44, 0.28, 1), -webkit-transform 0.25s cubic-bezier(0.07, 0.44, 0.28, 1);
 }
-.interface__new-member-form-back:active i {
+.interface__new-member-back:active i {
   -webkit-transform: scale(0.5);
           transform: scale(0.5);
+}
+.interface__loader {
+  display: block;
+  width: 90%;
+  height: 90%;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: rgb(238, 238, 238);
+  -webkit-animation-name: loader;
+          animation-name: loader;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: cubic-bezier(0.15, -0.01, 0.18, 1);
+          animation-timing-function: cubic-bezier(0.15, -0.01, 0.18, 1);
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
 }
 .interface--show {
   -webkit-animation-name: showInterface;
@@ -1545,6 +1573,44 @@
 @keyframes removeInterface {
   100% {
     left: 100%;
+  }
+}
+@-webkit-keyframes loader {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes loader {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes nextLeft {
+  5% {
+    left: 10%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+@keyframes nextLeft {
+  5% {
+    left: 10%;
+  }
+  100% {
+    left: -100%;
   }
 }
 @-webkit-keyframes levitate {

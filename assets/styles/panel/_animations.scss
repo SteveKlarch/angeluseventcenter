@@ -19,3 +19,25 @@
         left: 100%;
     }
 }
+
+@keyframes loader {
+
+    0% {
+        opacity: 1;
+    } 50% {
+        opacity: .6;
+    } 100% {
+        opacity: 1;
+    }
+
+}
+
+@keyframes nextLeft {
+
+    5% {
+        left: 10%;
+    } 100% {
+        left: -100%;
+    }   
+
+}

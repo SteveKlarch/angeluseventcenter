@@ -85,6 +85,7 @@
 
     &__new-member {
         position: relative;
+        left: 0;
         z-index: 8;
         width: 100%;
         height: auto;
@@ -199,38 +200,60 @@
                 font-weight: 500;
                 font-size: 1.5rem;
                 background-color: #998D5D;
-            }
+                transition: transform .5s linear cubic-bezier(.29,0,.29,1);
 
-            &-back {
-
-                position: fixed;
-                z-index: 3;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                height: 50px;
-                border: none;
-                background-color: #CCBF8B;
-                padding: 5px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                & > i {
-                    display: inline-block;
-                    color: white;
-                    font-size: 3rem;
-                    transition: transform .25s cubic-bezier(.07,.44,.28,1);
+                &:hover {
+                    outline: none;
                 }
 
-                &:active i {
-                    transform: scale(.5);
+                &:active {
+                    transform: scale(0.98);
                 }
-
             }
 
         }
 
+        &-back {
+
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 50px;
+            border: none;
+            background-color: #CCBF8B;
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            & > i {
+                display: inline-block;
+                color: white;
+                font-size: 3rem;
+                transition: transform .25s cubic-bezier(.07,.44,.28,1);
+            }
+
+            &:active i {
+                transform: scale(.5);
+            }
+
+        }
+
+    }
+
+    &__loader {
+        display: block;
+        width: 90%;
+        height: 90%;
+        margin: 0 auto;
+        border-radius: 10px;
+        background-color: rgb(238, 238, 238);
+        animation-name: loader;
+        animation-duration: 1s;
+        animation-timing-function: cubic-bezier(.15,-0.01,.18,1);
+        animation-iteration-count: infinite;
     }
 
     &--show {
