@@ -197,7 +197,9 @@ function showInterface(value) {
 
     createElement('section', 'interface', 'interface', '');
     document.getElementById('interface').classList.add('interface--show');
-    interfaceView(value, 'interface');
+    setTimeout(() => {
+        interfaceView(value, 'interface');
+    }, 500);
 
 }
 
@@ -262,7 +264,7 @@ function interfaceView(type, fatherInterfaceID) {
                     <option value="">anunciante</option>
                 </datalist>
 
-                <button class="interface__new-member-form-button">Crear miembro</button>
+                <button type="submit" class="interface__new-member-form-button">Crear miembro</button>
 
                 <button id="new-member-back-button" class="interface__new-member-form-back">
                     <i class="fa-solid fa-arrow-left"></i>
