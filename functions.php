@@ -41,20 +41,17 @@ add_action('wp_enqueue_scripts', function() {
     // Localizador del archivo functions.js
 
     wp_localize_script('functions', 'object', array(
-        'url_home'      => home_url(),
-        'url_api'       => home_url('wp-json'),
-        'url_team'      => home_url('team')
+        'url_home'          => home_url(),
+        'url_api'           => home_url('wp-json'),
+        'url_team'          => home_url('team'),
+        'url_create'        => home_url('create')
     ));
-
-    // Localizador de funciones registradas
 
     wp_localize_script('route', 'universal', array(
         'burguer_icon'   => get_stylesheet_directory_uri() . '/assets/icons/panel/burguer-member.svg',
         'add_icon'       => get_stylesheet_directory_uri() . '/assets/icons/panel/add.svg',
         'store_icon'     => get_stylesheet_directory_uri() . '/assets/icons/panel/store.svg'
     ));
-
-    // Localizador de funciones en fila
 
     wp_localize_script('signon', 'login', array(
         'url_home'  => home_url(),
@@ -66,6 +63,11 @@ add_action('wp_enqueue_scripts', function() {
         'url_api'   => home_url('wp-json'),
         'url_panel' => home_url('panel'),
         'url_team'  => home_url('team')
+    ));
+
+    wp_localize_script('create', 'item', array(
+        'url'           => home_url('create'),
+        'url_panel'     => home_url('panel')
     ));
 
 });

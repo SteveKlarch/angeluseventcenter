@@ -195,19 +195,23 @@ function showStorePanel() {
 
 function showInterface(value) {
 
-    createElement('section', 'interface', 'interface', '<div class="interface__loader" id="new-member-loader"></div>');
-    document.getElementById('interface').classList.add('interface--show');
-    createElement('div', '', '', '', document.getElementById('interface'));
-    window.location.assign(`${object.url_home}/create?type=${value}`);
+    loadingView();
+    window.location.assign(`${object.url_create}?type=${value}`);
 
 }
 
 // Mostrar Popup de interfaz
 
-function interfaceView(type, fatherInterfaceID) {
+function interfaceView(ID) {
 
     let body = '';
 
+    // 1. Atrapamos la URL del sitio
+    let urlCreate = new URL(window.location.href);
+    // 2. Atrapamos el parámetro de la URL capturada 
+    let type      = urlCreate.search.split('=')[1];
+
+    // 3. Manipulamos el parámetro atrapado
     if(type == 'prd') {
 
         body = ``;
@@ -230,68 +234,59 @@ function interfaceView(type, fatherInterfaceID) {
 
     } else if(type == 'miem') {
 
-        let bodyMember = `
+        body = `
 
-            <label class="interface__new-member-form-label" for="member-name"></label>
-            <input class="interface__new-member-form-input--name" id="member-name" placeholder="Nombre del nuevo miembro" name="member[name]" type="text" />
+            <h1 class="new__title">Crear miembro</h1>
+
+            <label class="new__form-label" for="member-name"></label>
+            <input class="new__form-input--name" id="member-name" placeholder="Nombre del nuevo miembro" name="member[name]" type="text" />
         
-            <label class="interface__new-member-form-label" for="member-email"></label>
-            <span class="interface__new-member-form-span">Email</span>
-            <input class="interface__new-member-form-input" id="member-email" name="member[email]" placeholder="example@example.com" type="email" />
+            <label class="new__form-label" for="member-email"></label>
+            <span class="new__form-span">Email</span>
+            <input class="new__form-input" id="member-email" name="member[email]" placeholder="example@example.com" type="email" />
 
-            <label class="interface__new-member-form-label" for="member-password"></label>
-            <span class="interface__new-member-form-span">Contraseña</span>
+            <label class="new__form-label" for="member-password"></label>
+            <span class="new__form-span">Contraseña</span>
 
-            <div class="interface__new-member-form-superlabel">
-                <input class="interface__new-member-form-superlabel-input" id="member-password" placeholder="coloca una contraseña aquí" name="member[password]" type="password" />
+            <div class="new__form-superlabel">
+                <input class="new__form-superlabel-input" id="member-password" placeholder="coloca una contraseña aquí" name="member[password]" type="password" />
                 <i id="reveal" class="fa-solid fa-eye"></i>
             </div>
 
-            <label for="member-role" class="interface__new-member-form-label"></label>
-            <span class="interface__new-member-form-span">¿Cuál será el rol del nuevo miembro?</span>
-            <input list="member-roles" id="member-role" name="member[role]" class="interface__new-member-form-input" placeholder="elije un rol aquí" />
-
-            <datalist id="member-roles">
-                <option value="administrador"></option>
-                <option value="gestor"></option>
-                <option value="ejecutivo"></option>
-                <option value="planificador"></option>
-                <option value="">anunciante</option>
-            </datalist>
-
-            <button type="submit" id="create-new-member" class="interface__new-member-form-button">Crear miembro</button>
+            <button type="submit" id="create-new-member" class="new__form-button">Siguiente</button>
             
-            <button type="button" id="new-member-back-button" class="interface__new-member-back">
+            <button type="button" id="new-member-back-button" class="new__back">
                 <i class="fa-solid fa-arrow-left"></i>
             </button>
         
         `;
 
-        createElement('div', 'interface__new-member', 'new-member', '', document.getElementById(fatherInterfaceID));
-        createElement('h1', 'interface__new-member-title', '', 'Crear miembro', document.getElementById('new-member'));
-        const form = document.createElement('form');
-        form.setAttribute('action', './');
-        form.setAttribute('method', 'post');
-        form.setAttribute('id', 'member-form');
-        form.setAttribute('class', 'interface__new-member-form');
-        form.innerHTML = bodyMember;
-        document.getElementById('new-member').appendChild(form);
+        createForm('new', 'post', 'member-form', 'new__form', body);
         memberInputs('member-password' , 'reveal');
-        next('new-member', 'member-form');
+
+        const newMemberForm = document.getElementById('member-form');
+
+        newMemberForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const form = new FormData(newMemberForm);
+            next('new', 'member-form', form);
+        });
+
 
     } else {
 
         body = `
     
             <span>¿Seguro que deseas salir del panel de control?</span>
-            <div class="interface__goback-buttons">
+            <div class="new__goback-buttons">
                 <button class="goback" id="goback">Si, salir ahora</button>
                 <button class="goback" id="gocancel">No, cancelar</button>
             </div>
 
         `;
 
-        createElement('div', 'interface__goback', 'interface-goback', body, document.getElementById(fatherInterfaceID));
+        createElement('div', 'new__goback', 'interface-goback', body, document.getElementById(ID));
         // Este script afecta el panel de opciones que se le muestran al cliente antes de salir de la sesión. 
         document.getElementById('interface-goback').addEventListener('click', function(e) {
             if(e.target.classList.contains('goback')) {
@@ -300,7 +295,7 @@ function interfaceView(type, fatherInterfaceID) {
 
                     let curtain = '<i class="fa-solid fa-circle-notch"></i>';
 
-                    createElement('div', 'interface__goback--curtain', 'interface-goback-curtain', curtain, document.getElementById('interface-goback'));
+                    createElement('div', 'new__goback--curtain', 'interface-goback-curtain', curtain, document.getElementById('interface-goback'));
 
                     fetch(`${object.url_api}/angelus/members/logout`, {
                         method: 'GET'
@@ -341,6 +336,18 @@ function createElement(type, c, i = '', content = '', father = document.body) {
     }
 
     father.appendChild(element);
+
+}
+
+function createForm(fatherID, method, i, c, body) {
+
+    const form = document.createElement('form');
+    form.setAttribute('action', './');
+    form.setAttribute('method', method = 'get');
+    form.setAttribute('id', i);
+    form.setAttribute('class', c);
+    form.innerHTML = body;
+    document.getElementById(fatherID).appendChild(form);
 
 }
 
@@ -438,6 +445,11 @@ function loadingView() {
                         
             <section id="authenticate" class="authenticate">
 
+            <div class="authenticate__header">
+                <span class="authenticate__header-item"></span>
+                <span class="authenticate__header-item authenticate__header-item--second"></span>
+                <span class="authenticate__header-item"></span>
+            </div>
                 <div class="authenticate__header">
                     <span class="authenticate__header-item"></span>
                     <span class="authenticate__header-item authenticate__header-item--second"></span>
@@ -446,6 +458,11 @@ function loadingView() {
                 <div class="authenticate__panel">
                     <span class="authenticate__panel-item"></span>
                     <span class="authenticate__panel-item"></span>
+                </div>
+                <div class="authenticate__footer">
+                    <span class="authenticate__footer-item"></span>
+                    <span class="authenticate__footer-item authenticate__footer-item--second"></span>
+                    <span class="authenticate__footer-item"></span>
                 </div>
                 <div class="authenticate__footer">
                     <span class="authenticate__footer-item"></span>
@@ -488,20 +505,39 @@ function memberInputs(inputID, itemID) {
     backButton.addEventListener('click', function(e) {
         e.preventDefault();
 
-            document.getElementById('interface').remove();
+            loadingView();
+            window.location.assign('panel');
+
     });
 
 }
 
-function next(fatherID, formID) {
+function next(fatherID, formID, form) {
 
-    const newMemberForm = document.getElementById(formID);
+    // Desaparece el formulario base
+    document.getElementById(formID).classList.add('next-left');
+    setTimeout(() => {
+        document.getElementById(formID).remove();
+    }, 1000);
 
-    newMemberForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        console.log(e);
-    });
+    // Aparece la elección de roles
+    body = `
+    
+        <label class="new__form-label--role" for="gestor">
+            <article class="new__form-label--role-article">
+                <i class="fa-solid fa-person-dress"></i>
+                <div class="new__form-label--role-article">
+                    <h3>Gestor</h3>
+                    <p>Crea y edita vestidos, utiliza la pasarela de pago de Angelus Event Center
+                    y guía a tus clientes a obtener el mejor modelo.</p>
+                </div>
+            </article>
+        </label>
+        <input class="new__form--checkbox" id="gestor" type="checkbox" />
+    
+    `;
+    createForm('new', 'post', 'member-role', 'new__form new__form--roles', body);
+    document.getElementById(fatherID).classList.add('next-right');
 
 }
 

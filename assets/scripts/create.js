@@ -1,3 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    interfaceView();
+
+    if(document.getElementById('new')) {
+
+        interfaceView('new');
+
+    }
 });
