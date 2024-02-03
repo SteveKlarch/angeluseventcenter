@@ -264,8 +264,8 @@ function interfaceView(ID) {
         createForm('new', 'post', 'member-form', 'new__form', body);
         memberInputs('member-password' , 'reveal');
 
+        // Llenar el formulario
         const newMemberForm = document.getElementById('member-form');
-
         newMemberForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -518,26 +518,29 @@ function next(fatherID, formID, form) {
     document.getElementById(formID).classList.add('next-left');
     setTimeout(() => {
         document.getElementById(formID).remove();
-    }, 1000);
 
-    // Aparece la elección de roles
-    body = `
-    
-        <label class="new__form-label--role" for="gestor">
-            <article class="new__form-label--role-article">
-                <i class="fa-solid fa-person-dress"></i>
-                <div class="new__form-label--role-article">
-                    <h3>Gestor</h3>
-                    <p>Crea y edita vestidos, utiliza la pasarela de pago de Angelus Event Center
-                    y guía a tus clientes a obtener el mejor modelo.</p>
-                </div>
-            </article>
-        </label>
-        <input class="new__form--checkbox" id="gestor" type="checkbox" />
-    
-    `;
-    createForm('new', 'post', 'member-role', 'new__form new__form--roles', body);
-    document.getElementById(fatherID).classList.add('next-right');
+        // Aparece la elección de roles
+        body = `
+        
+            <label class="new__form-label--role" for="gestor">
+                <article class="new__form-label--role-article">
+                    <i class="fa-solid fa-person-dress"></i>
+                    <div class="new__form-label--role-article">
+                        <h3>Gestor</h3>
+                        <p>Crea y edita vestidos, utiliza la pasarela de pago de Angelus Event Center
+                        y guía a tus clientes a obtener el mejor modelo.</p>
+                    </div>
+                </article>
+            </label>
+            <input class="new__form--checkbox" id="gestor" type="checkbox" />
+            <button type="button" id="new-member-back-button" class="new__back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+        
+        `;
+        createForm(fatherID, 'post', 'member-role', 'new__form new__form--roles', body);
+        document.getElementById('member-role').classList.add('next-right');
+    }, 1000);
 
 }
 
