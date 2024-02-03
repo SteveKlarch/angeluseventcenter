@@ -236,43 +236,42 @@ function interfaceView(ID) {
 
         body = `
 
-            <h1 class="new__title">Crear miembro</h1>
+            <div id="new-form-bd" class="new__form-bd">
 
-            <label class="new__form-label" for="member-name"></label>
-            <input class="new__form-input--name" id="member-name" placeholder="Nombre del nuevo miembro" name="member[name]" type="text" />
-        
-            <label class="new__form-label" for="member-email"></label>
-            <span class="new__form-span">Email</span>
-            <input class="new__form-input" id="member-email" name="member[email]" placeholder="example@example.com" type="email" />
+                <h1 class="new__form-bd-title">Comencemos con lo básico para crear un nuevo miembro...</h1>
 
-            <label class="new__form-label" for="member-password"></label>
-            <span class="new__form-span">Contraseña</span>
-
-            <div class="new__form-superlabel">
-                <input class="new__form-superlabel-input" id="member-password" placeholder="coloca una contraseña aquí" name="member[password]" type="password" />
-                <i id="reveal" class="fa-solid fa-eye"></i>
-            </div>
-
-            <button type="submit" id="create-new-member" class="new__form-button">Siguiente</button>
+                <label class="new__form-bd-label" for="member-name"></label>
+                <input class="new__form-bd-input--name" id="member-name" placeholder="Nombre del nuevo miembro" name="member[name]" type="text" />
             
-            <button type="button" id="new-member-back-button" class="new__back">
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
+                <label class="new__form-bd-label" for="member-email"></label>
+                <span class="new__form-bd-span">Email</span>
+                <input class="new__form-bd-input" id="member-email" name="member[email]" placeholder="example@example.com" type="email" />
+
+                <label class="new__form-bd-label" for="member-password"></label>
+                <span class="new__form-bd-span">Contraseña</span>
+
+                <div class="new__form-bd-superlabel">
+                    <input class="new__form-bd-superlabel-input" id="member-password" placeholder="coloca una contraseña aquí" name="member[password]" type="password" />
+                    <i id="reveal" class="fa-solid fa-eye"></i>
+                </div>
+
+                <button type="button" id="next-button" class="new__form-bd-button">Siguiente</button>
+
+            </div>
         
         `;
-
+        // Creamos el formulario base.
         createForm('new', 'post', 'member-form', 'new__form', body);
-        memberInputs('member-password' , 'reveal');
-
+        // Creamos el botón para retroceder.
+        createButton('new', 'button', 'back-home', 'new-member-back-button', 'new__back', '<i class="fa-solid fa-arrow-left"></i>');
+        // Activamos los eventos del formulario
+        memberInputs('member-password', 'reveal', 'new-form-bd', 'new-form-roles');
         // Llenar el formulario
-        const newMemberForm = document.getElementById('member-form');
-        newMemberForm.addEventListener('submit', function(e) {
+        document.getElementById('next-button').addEventListener('click', function(e) {
             e.preventDefault();
-
-            const form = new FormData(newMemberForm);
-            next('new', 'member-form', form);
+            buttonEvent('new-member-back-button');
+            next('member-form', 'new-form-bd', form, 'new-member-back-button');
         });
-
 
     } else {
 
@@ -336,18 +335,33 @@ function createElement(type, c, i = '', content = '', father = document.body) {
     }
 
     father.appendChild(element);
+    return document.getElementById(i);
 
 }
 
-function createForm(fatherID, method, i, c, body) {
+function createForm(fatherID, method = 'get', i, c, body) {
 
     const form = document.createElement('form');
     form.setAttribute('action', './');
-    form.setAttribute('method', method = 'get');
+    form.setAttribute('method', method);
     form.setAttribute('id', i);
     form.setAttribute('class', c);
     form.innerHTML = body;
     document.getElementById(fatherID).appendChild(form);
+    return document.getElementById(i);
+
+}
+
+function createButton(fatherID, type, value, i, c, content) {
+
+    const button = document.createElement('button');
+    button.setAttribute('id', i);
+    button.setAttribute('class', c);
+    button.setAttribute('type', type);
+    button.setAttribute('value', value);
+    button.innerHTML = content;
+
+    document.getElementById(fatherID).appendChild(button);
 
 }
 
@@ -479,69 +493,145 @@ function loadingView() {
 
 }
 
-function memberInputs(inputID, itemID) {
+// Avanzar en el formulario
 
-    let input = document.getElementById(inputID);
-    let eye   = document.getElementById(itemID);
-    let backButton = document.getElementById('new-member-back-button');
+function next(fatherID, sectionID, form, buttonID = '') {
 
-    eye.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        if(input.type == 'password') {
-            input.type           = 'text';
-            e.target.style.color = '#9f9f9f';
-        } else {
-            input.type           = 'password';
-            e.target.style.color = '#c7c7c7';
-        }
-
-    });
-    
-    document.addEventListener('backbutton', function() {
-        document.getElementById('interface').remove();
-    });
-
-    backButton.addEventListener('click', function(e) {
-        e.preventDefault();
-
-            loadingView();
-            window.location.assign('panel');
-
-    });
-
-}
-
-function next(fatherID, formID, form) {
-
-    // Desaparece el formulario base
-    document.getElementById(formID).classList.add('next-left');
+    // Declaramos los elementos pertinentes para avanzar en el formulario
+    document.getElementById(buttonID).value = 'back-prev';
+    const formPrev = document.getElementById(sectionID);
+    formPrev.classList.add('next-left');
+    // Aparece la elección de roles
     setTimeout(() => {
-        document.getElementById(formID).remove();
 
-        // Aparece la elección de roles
+        // Ocultamos la primera parte del formulario.
+        formPrev.style.display = 'none';
+        // Mostramos la egunda parte del formulario
         body = `
         
-            <label class="new__form-label--role" for="gestor">
-                <article class="new__form-label--role-article">
+            <h1 class="new__form-roles-title">Ahora, elije el rol que tendrá el nuevo miembro...</h1>
+
+            <label class="new__form-roles-label--role" for="admin">
+                <article class="new__form-roles-label--role-article">
+                    <i class="fa-solid fa-flag"></i>
+                    <div class="new__form-roles-label--role-article">
+                        <h3>Administrador</h3>
+                        <p>Obtén un panorama completo de la actividad de la boutique, gestiona miembros y aprueba permisos.</p>
+                    </div>
+                </article>
+            </label>
+            <input form="${fatherID}" class="new__form-roles--checkbox" id="admin" type="checkbox" value="admin" />
+
+            <label class="new__form-roles-label--role" for="gestor">
+                <article class="new__form-roles-label--role-article">
                     <i class="fa-solid fa-person-dress"></i>
-                    <div class="new__form-label--role-article">
+                    <div class="new__form-roles-label--role-article">
                         <h3>Gestor</h3>
                         <p>Crea y edita vestidos, utiliza la pasarela de pago de Angelus Event Center
                         y guía a tus clientes a obtener el mejor modelo.</p>
                     </div>
                 </article>
             </label>
-            <input class="new__form--checkbox" id="gestor" type="checkbox" />
-            <button type="button" id="new-member-back-button" class="new__back">
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
+            <input form="${fatherID}" class="new__form-roles--checkbox" id="gestor" type="checkbox" value="gestor" />
+
+            <label class="new__form-roles-label--role" for="ejecutivo">
+                <article class="new__form-roles-label--role-article">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <div class="new__form-roles-label--role-article">
+                        <h3>Ejecutivo</h3>
+                        <p>Presupuesta clientes y comparte los resultados.</p>
+                    </div>
+                </article>
+            </label>
+            <input form="${fatherID}" class="new__form-roles--checkbox" id="ejecutivo" type="checkbox" value="ejecutivo" />
+
+            <label class="new__form-roles-label--role" for="planificador">
+                <article class="new__form-roles-label--role-article">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <div class="new__form-roles-label--role-article">
+                        <h3>Planificador</h3>
+                        <p>Toma el control de la revista Angelus y todos los medios de comunicación del sitio.</p>
+                    </div>
+                </article>
+            </label>
+            <input form="${fatherID}" class="new__form-roles--checkbox" id="planificador" type="checkbox" value="planificador" />
+
+            <label class="new__form-roles-label--role" for="anunciante">
+                <article class="new__form-roles-label--role-article">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <div>
+                        <h3>Anunciante</h3>
+                        <p>Crea y gestiona anuncios en el sitio de Angelus.</p>
+                    </div>
+                </article>
+            </label>
+            <input form="${fatherID}" class="new__form-roles--checkbox" id="anunciante" type="checkbox" value="anunciante" />
+
+            <button type="submit" id="create-new-member" class="new__form-roles-button">Crear miembro</button>
         
         `;
-        createForm(fatherID, 'post', 'member-role', 'new__form new__form--roles', body);
-        document.getElementById('member-role').classList.add('next-right');
-    }, 1000);
+        const formNow = createElement('div', 'new__form-roles', 'new-form-roles', body, document.getElementById(fatherID));
+        formNow.classList.add('next-right');
 
+    }, 800);
+
+}
+
+
+
+function memberInputs(inputID = '', itemID = '', oldSectionID, newSectionID) {
+
+    // Script del cmapo contraseña
+    if(document.getElementById(inputID)) {
+        let input = document.getElementById(inputID);
+        let eye   = document.getElementById(itemID);
+        eye.addEventListener('click', function(e) {
+            e.preventDefault();
+    
+            if(input.type == 'password') {
+                input.type           = 'text';
+                e.target.style.color = '#9f9f9f';
+            } else {
+                input.type           = 'password';
+                e.target.style.color = '#c7c7c7';
+            }
+    
+        });
+    }
+    // Script del botón back
+    const backButton = document.getElementById('new-member-back-button');
+    backButton.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        if(e.target.value == 'back-home') {
+            loadingView();
+            window.location.assign('panel');
+        } else if(e.target.value == 'back-prev') {
+
+            let newSection = document.getElementById(newSectionID);
+            let oldSection = document.getElementById(oldSectionID);
+
+            // Quitar viejas clases de entrada y salida
+            oldSection.classList.remove('next-left');
+            newSection.classList.remove('next-right');
+            // Agregar nuevas clases de entrada y salida
+            oldSection.style.display = 'flex';
+            oldSection.classList.add('prev-left');
+            newSection.style.display = 'none';
+            newSection.classList.add('prev-right');
+                
+        }
+
+    });
+
+}
+
+function leftMove(ID) {
+
+    const element = document.getElementById(ID);
+
+    element.classList.add();
+    element.style.diisplay = 'none';
 }
 
 // Messages

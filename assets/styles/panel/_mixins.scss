@@ -6,3 +6,28 @@
     animation-iteration-count: infinite;
 
 }
+
+@mixin contentForm {
+    position: relative;
+    width: 90%;
+    min-width: 288px;
+    margin: 0 auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+@mixin titleContentForm {
+    position: relative;
+    width: 100%;
+    min-width: 288px;
+    max-width: 500px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+}
