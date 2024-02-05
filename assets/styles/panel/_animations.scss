@@ -37,15 +37,31 @@
     5% {
         transform: translateX(5%);
     } 100% {
-        transform: translateX(-100%);
+        transform: translateX(-150%);
     }   
 
 }
 
-@keyframes moveRight {
+@keyframes moveNeutral {
 
     100% {
         transform: translateX(0)
     }   
 
+}
+
+@keyframes moveRight {
+    95% {
+        transform: translateX(-5%);
+    } 100% {
+        transform: translateX(110%);
+    }
+}
+
+@keyframes buttonShowUp {
+    0% {
+        bottom: -100%;
+    } 100% {
+        bottom: 0;
+    }
 }

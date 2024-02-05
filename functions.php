@@ -33,6 +33,7 @@ add_action('wp_enqueue_scripts', function() {
     wp_enqueue_script('interfaces', get_stylesheet_directory_uri() . '/assets/scripts/interfaces.js', array('functions'), false, true);
     wp_enqueue_script('logout', get_stylesheet_directory_uri() . '/assets/scripts/logout.js', array('functions'), false, true);
     wp_enqueue_script('create', get_stylesheet_directory_uri() . '/assets/scripts/create.js', array('functions'), false, true);
+    wp_enqueue_script('new-member', get_stylesheet_directory_uri() . '/assets/scripts/new-member.js', array('functions'), false);
 
 });
 
@@ -68,6 +69,11 @@ add_action('wp_enqueue_scripts', function() {
     wp_localize_script('create', 'item', array(
         'url'           => home_url('create'),
         'url_panel'     => home_url('panel')
+    ));
+
+    wp_localize_script('new-member', 'member', array(
+        'url_panel'     => home_url('panel'),
+        'url_api'       => home_url('wp-json')
     ));
 
 });
@@ -167,6 +173,11 @@ add_action('rest_api_init', function() {
     register_rest_route('angelus', 'members/authenticate', array(
         'methods'   => 'GET',
         'callback'  => 'authenticate_member'
+    ), true);
+
+    register_rest_route('angelus', 'members/new-member', array(
+        'methods'   => 'POST',
+        'callback'  => 'new_member'
     ), true);
 
 });
@@ -301,14 +312,18 @@ function new_member($request) {
     );
 
     if($role == 'gestor') {
-        // $newUser['role'] = ;
+        $newUser['role'] = 'gestor';
     } else if($role == 'ejecutivo') {
-        // $newUser['role'] = ;
+        $newUser['role'] = 'ejecutivo';
     } else if($role == 'planificador') {
-        // $newUser['role'] = ;
+        $newUser['role'] = 'planificador';
+    } else if($role == 'anunciante') {
+        $newUser['role'] = 'anunciante';
     } else {
-        // $newUser['role'] = ;
+        $newUser['role'] = 'admin';
     }
+
+    $newUser['meta_input'] = array();
 
     $newUser = wp_insert_user($newUser);
 

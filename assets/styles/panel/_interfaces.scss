@@ -18,9 +18,11 @@
             min-width: 320px;
             max-width: 500px;
             margin: 0 auto;
+            padding: 50px 0;
             height: auto;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 15px;
@@ -29,7 +31,7 @@
             &-bd, &-roles {
 
                 @include contentForm;
-                left: 0;
+                display: flex;
 
                 &-title {
                     @include titleContentForm;
@@ -144,8 +146,7 @@
             &-roles {
 
                 @include contentForm;
-                padding: 100px 0;
-                left: 110%;
+                padding: 20px 0;
                 gap: 10px;
 
                 &-label {
@@ -194,10 +195,10 @@
 
                         }
 
-                        &:hover {
+                        &-active {
                             border: 1px solid #806737;
                             background-color: #fcfcfc;
-                            transform: scale(0.98);
+                            transform: scale(0.98); 
                         }
 
                     }
@@ -218,7 +219,7 @@
             z-index: 3;
             left: 0;
             right: 0;
-            bottom: 0;
+            bottom: -100%;
             height: 50px;
             border: none;
             background-color: #CCBF8B;
@@ -242,9 +243,9 @@
 
 }
 
-.next-left {
+.move-left {
 
-    animation-name: nextLeft;
+    animation-name: moveLeft;
     animation-duration: .8s;
     animation-timing-function: cubic-bezier(.76,-0.23,.1,1.18);
     animation-iteration-count: 1;
@@ -252,26 +253,16 @@
 
 }
 
-.next-right {
-    animation-name: nextRight;
+.move-neutral {
+    animation-name: moveNeutral;
     animation-duration: .8s;
     animation-timing-function: cubic-bezier(.23,.14,.2,1);
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
 
-.prev-left {
-
-    animation-name: prevLeft;
-    animation-duration: .8s;
-    animation-timing-function: cubic-bezier(.76,-0.23,.1,1.18);
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-
-}
-
-.prev-right {
-    animation-name: prevRight;
+.move-right {
+    animation-name: moveRight;
     animation-duration: .8s;
     animation-timing-function: cubic-bezier(.23,.14,.2,1);
     animation-iteration-count: 1;
@@ -392,4 +383,12 @@
         animation-fill-mode: forwards;
     }
 
+}
+
+.show-up {
+    animation-name: buttonShowUp;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.22,.09,.01,.99);
+    animation-iteration-count: 1;
 }
