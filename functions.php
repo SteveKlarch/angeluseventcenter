@@ -285,30 +285,59 @@ function new_member($request) {
     $password = stripslashes(wp_unslash($request['member']['password']));
     $role     = $request['member']['role'];
 
+    if($epty($email) && empty($user)) {
+        wp_send_json(array(
+            'status'    => 1000,
+            'message'   => 'Por favor, llena todos los campos requeridos.'
+        ));
+    } else if(empty($email)) {
+        wp_send_json(array(
+            'status'    => 1100,
+            'message'   => 'Por favor, coloca un email para continuar.'
+        ));
+    } else if(empty($user)) {
+        wp_send_json(array(
+            'status'    => 1200,
+            'message'   => 'Por favor llena el campo de "Nombre de usuario".'
+        ));
+    } else if(empty($password)) {
+        wp_send_json(array(
+            'status'    => 1300,
+            'message'   => 'Por favor, llena el campo de "contraseña".'
+        ));
+    } else if(empty($role)) {
+        wp_send_json(array(
+            'status'    => 1340,
+            'message'   => 'Por favor, elije un rol de usuario.'
+        ));
+    }
+
     $_email_exist = get_user_by('email', $email);
     $_user_exist  = get_user_by('login', $user);
 
     if($_email_exist) {
         wp_send_json(array(
-            'status'    => 1000,
+            'status'    => 1400,
             'message'   => 'Ya existe este email, prueba con otro.'
         ));
     }
 
     if($_email_exist) {
         wp_send_json(array(
-            'status'    => 1100,
+            'status'    => 1500,
             'message'   => 'Ya existe este usuario.'
         ));
     }
 
     $newUser = array(
-        'user_login'            => $user,
+        'user_login'            => $email,
+        'nickname'              => $username,
         'user_pass'             => $password,
         'user_email'            => $email,
         'rich_editing'          => false,
         'user_ssl'              => true,
-        'show_admin_bar_front'  => false
+        'show_admin_bar_front'  => false,
+        'syntax_highlighting'    => false
     );
 
     if($role == 'gestor') {
@@ -323,14 +352,12 @@ function new_member($request) {
         $newUser['role'] = 'admin';
     }
 
-    $newUser['meta_input'] = array();
-
     $newUser = wp_insert_user($newUser);
 
     if($newUser) {
         wp_send_json(array(
             'status'    => 400,
-            'message'   => 'Se ha creado un nuevo miembro.'
+            'message'   => ''
         ));
     }
 

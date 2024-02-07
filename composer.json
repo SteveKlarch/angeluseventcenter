@@ -1,0 +1,11 @@
+{
+    "name": "angelus/trescomas",
+    "autoload": {
+        "psr-4": {
+            "Angelus\\Trescomas\\": "src/"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}
