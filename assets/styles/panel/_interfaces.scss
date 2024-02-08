@@ -63,6 +63,10 @@
                         &:hover {
                             outline: none;
                         }
+
+                        &:active {
+                            background-color: white;
+                        }
                     }
 
                     & > i {
@@ -113,6 +117,10 @@
 
                     &::placeholder {
                         color: rgb(192, 192, 192);
+                    }
+
+                    &:active {
+                        background-color: white;
                     }
 
                 }

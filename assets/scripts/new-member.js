@@ -70,8 +70,11 @@ function submitForm() {
         });
 
         const response = await request.json();
-
         console.log(response);
+
+        if(response.status == 400) {
+            window.location.assign(response.message);
+        }
 
     });
 

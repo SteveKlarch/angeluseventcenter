@@ -1267,6 +1267,9 @@
 .new__form-bd-superlabel-input:hover, .new__form-roles-superlabel-input:hover {
   outline: none;
 }
+.new__form-bd-superlabel-input:active, .new__form-roles-superlabel-input:active {
+  background-color: white;
+}
 .new__form-bd-superlabel > i, .new__form-roles-superlabel > i {
   font-size: 1.5rem;
   color: #c7c7c7;
@@ -1323,6 +1326,9 @@
 }
 .new__form-bd-input::placeholder, .new__form-roles-input::placeholder {
   color: rgb(192, 192, 192);
+}
+.new__form-bd-input:active, .new__form-roles-input:active {
+  background-color: white;
 }
 .new__form-bd-button, .new__form-roles-button {
   display: inline-block;

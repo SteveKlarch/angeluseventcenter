@@ -1,5 +1,7 @@
 <?php
 
+require_once(get_template_directory() . '/woocommerce-functions.php');
+
 // Personalización del tema
 
 add_action('wp_enqueue_scripts', function() {
@@ -34,6 +36,7 @@ add_action('wp_enqueue_scripts', function() {
     wp_enqueue_script('logout', get_stylesheet_directory_uri() . '/assets/scripts/logout.js', array('functions'), false, true);
     wp_enqueue_script('create', get_stylesheet_directory_uri() . '/assets/scripts/create.js', array('functions'), false, true);
     wp_enqueue_script('new-member', get_stylesheet_directory_uri() . '/assets/scripts/new-member.js', array('functions'), false);
+    wp_enqueue_script('success', get_stylesheet_directory_uri() . '/assets/scripts/success.js', array('functions'), false);
 
 });
 
@@ -45,7 +48,7 @@ add_action('wp_enqueue_scripts', function() {
         'url_home'          => home_url(),
         'url_api'           => home_url('wp-json'),
         'url_team'          => home_url('team'),
-        'url_create'        => home_url('create')
+        'url_create'        => home_url('panel/create')
     ));
 
     wp_localize_script('route', 'universal', array(
@@ -281,11 +284,11 @@ function authenticate_member() {
 function new_member($request) {
 
     $email = stripslashes(sanitize_user(wp_unslash($request['member']['email']), true));
-    $user  = stripslashes(sanitize_user(wp_unslash($request['member']['name']), true));
+    $username  = stripslashes(sanitize_user(wp_unslash($request['member']['name']), true));
     $password = stripslashes(wp_unslash($request['member']['password']));
     $role     = $request['member']['role'];
 
-    if($epty($email) && empty($user)) {
+    if(empty($email) && empty($username)) {
         wp_send_json(array(
             'status'    => 1000,
             'message'   => 'Por favor, llena todos los campos requeridos.'
@@ -295,7 +298,7 @@ function new_member($request) {
             'status'    => 1100,
             'message'   => 'Por favor, coloca un email para continuar.'
         ));
-    } else if(empty($user)) {
+    } else if(empty($username)) {
         wp_send_json(array(
             'status'    => 1200,
             'message'   => 'Por favor llena el campo de "Nombre de usuario".'
@@ -313,7 +316,7 @@ function new_member($request) {
     }
 
     $_email_exist = get_user_by('email', $email);
-    $_user_exist  = get_user_by('login', $user);
+    $_user_exist  = get_user_by('login', $username);
 
     if($_email_exist) {
         wp_send_json(array(
@@ -352,12 +355,25 @@ function new_member($request) {
         $newUser['role'] = 'admin';
     }
 
-    $newUser = wp_insert_user($newUser);
+    $newUserID = wp_insert_user($newUser);
 
-    if($newUser) {
+    if($newUserID) {
+        // Parámetros para conceder permisos al nuevo miembro 
+        $store_url  = home_url();
+        $endpoint   = '/wc-auth/v1/authorize';
+        $params     = array(
+            'app_name'      => 'angelus_' . $email,
+            'scope'         => 'read_write',
+            'user_id'       => $newUserID,
+            'return_url'    => home_url('/panel/create/new-member'),
+            'callback_url'  => home_url('/panel/lost?err=failed-member')
+        );
+        $query_string       = http_build_query($params);
+        $url_credentials    = $store_url . $endpoint . '?' . $query_string;
+
         wp_send_json(array(
             'status'    => 400,
-            'message'   => ''
+            'message'   => $url_credentials
         ));
     }
 
