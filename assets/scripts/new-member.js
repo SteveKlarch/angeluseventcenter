@@ -19,7 +19,7 @@ function rolesClick() {
 
     for(let i = 0; i < roleArray.length; i++) {
 
-        roleArray[i].addEventListener('click', function() {
+        roleArray[i].addEventListener('click', function(e) {
 
             roleArray[i].classList.toggle('new__form-roles-label--role-active');
 

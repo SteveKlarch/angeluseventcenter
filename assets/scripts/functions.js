@@ -270,7 +270,7 @@ function interfaceView(ID) {
                         </div>
                     </article>
                 </label>
-                <input name="member[role]" class="new__form-roles--checkbox" id="admin" type="checkbox" value="admin" />
+                <input id="admin" name="member[role]" class="new__form-roles--checkbox" type="checkbox" value="admin" />
 
                 <label class="new__form-roles-label--role" for="gestor">
                     <article class="new__form-roles-label--role-article">
@@ -282,7 +282,7 @@ function interfaceView(ID) {
                         </div>
                     </article>
                 </label>
-                <input name="member[role]" class="new__form-roles--checkbox" id="gestor" type="checkbox" value="gestor" />
+                <input id="gestor" name="member[role]" class="new__form-roles--checkbox" type="checkbox" value="gestor" />
 
                 <label class="new__form-roles-label--role" for="ejecutivo">
                     <article class="new__form-roles-label--role-article">
@@ -293,7 +293,7 @@ function interfaceView(ID) {
                         </div>
                     </article>
                 </label>
-                <input name="member[role]" class="new__form-roles--checkbox" id="ejecutivo" type="checkbox" value="ejecutivo" />
+                <input id="ejecutivo" name="member[role]" class="new__form-roles--checkbox" type="checkbox" value="ejecutivo" />
 
                 <label class="new__form-roles-label--role" for="planificador">
                     <article class="new__form-roles-label--role-article">
@@ -304,7 +304,7 @@ function interfaceView(ID) {
                         </div>
                     </article>
                 </label>
-                <input name="member[role]" class="new__form-roles--checkbox" id="planificador" type="checkbox" value="planificador" />
+                <input id="planificador" name="member[role]" class="new__form-roles--checkbox" type="checkbox" value="planificador" />
 
                 <label class="new__form-roles-label--role" for="anunciante">
                     <article class="new__form-roles-label--role-article">
@@ -315,7 +315,7 @@ function interfaceView(ID) {
                         </div>
                     </article>
                 </label>
-                <input name="member[role]" class="new__form-roles--checkbox" id="anunciante" type="checkbox" value="anunciante" />
+                <input id="anunciante" name="member[role]" class="new__form-roles--checkbox" type="checkbox" value="anunciante" />
 
                 <button type="submit" id="create-new-member" class="new__form-roles-button">Crear miembro</button>
     

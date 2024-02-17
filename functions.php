@@ -141,8 +141,21 @@ add_action('init', function() {
             )
         ],
         [
-            'role'          => 'ejecutivo',
-            'display'       => 'Ejecutivo de venta',
+            'role'          => 'anunciante',
+            'display'       => 'Anunciante de la Boutique',
+            'capabilities'  => array(
+                'delete_posts'           => true,
+                'delete_private_posts'   => true,
+                'delete_published_posts' => true,
+                'edit_posts'             => true,
+                'edit_other_posts'       => true,
+                'manage_categories'      => true,
+                'publish_posts'          => true,
+            )
+        ],
+        [
+            'role'          => 'admin',
+            'display'       => 'Administrador de la Boutique',
             'capabilities'  => array(
                 'delete_posts'           => true,
                 'delete_private_posts'   => true,
@@ -157,7 +170,7 @@ add_action('init', function() {
         ]
     );
 
-    aec_add_role($roles);
+    aec_roles($roles);
 
 }); 
 
@@ -286,7 +299,7 @@ function new_member($request) {
     $email = stripslashes(sanitize_user(wp_unslash($request['member']['email']), true));
     $username  = stripslashes(sanitize_user(wp_unslash($request['member']['name']), true));
     $password = stripslashes(wp_unslash($request['member']['password']));
-    $role     = $request['member']['role'];
+    $role     = $request['member']['role'];  
 
     if(empty($email) && empty($username)) {
         wp_send_json(array(
@@ -340,7 +353,8 @@ function new_member($request) {
         'rich_editing'          => false,
         'user_ssl'              => true,
         'show_admin_bar_front'  => false,
-        'syntax_highlighting'    => false
+        'syntax_highlighting'   => false,
+        'role'                  => $role
     );
 
     if($role == 'gestor') {
@@ -391,13 +405,10 @@ function assignCredentials($role) {
 
 // Funcionalidades
 
-function aec_add_role($roles) {
-
+function aec_roles($roles) {
     foreach($roles as $role) {
 
         add_role($role['role'], $role['display'], $role['capabilities']);
 
     }
-
 }
-
