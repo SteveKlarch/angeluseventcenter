@@ -1,5 +1,5 @@
 window.addEventListener('load', function() {
 
-    console.log('todo bien');
+    // console.log('todo bien');
     
 });

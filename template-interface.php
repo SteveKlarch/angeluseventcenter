@@ -1,4 +1,4 @@
-<?php // Template name: Crear ?>
+<?php // Template name: Interfaz ?>
 <?php session_start(); ?>
 <?php if(empty($_SESSION['user_id'])) {
 
@@ -11,7 +11,7 @@
 
 <?php get_header(); ?>
 
-    <section id="new" class="new">
+    <section id="interface" class="interface">
         <!-- Aquí van los diferentes tipos de interfaces según lo que el 
         miembro del equipo selecciones en la sección "crear" -->
     </section>

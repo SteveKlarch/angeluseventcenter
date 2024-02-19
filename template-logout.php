@@ -5,18 +5,8 @@
 <section id="logout" class="logout">
 
     <div class="logout__header">
-        <span class="logout__header-item"></span>
-        <span class="logout__header-item logout__header-item--second"></span>
-        <span class="logout__header-item"></span>
-    </div>
-    <div class="logout__panel">
-        <span class="logout__panel-item"></span>
-        <span class="logout__panel-item"></span>
-    </div>
-    <div class="logout__footer">
-        <span class="logout__footer-item"></span>
-        <span class="logout__footer-item logout__footer-item--second"></span>
-        <span class="logout__footer-item"></span>
+        <i class="fa-solid fa-heart"></i>
+        <p class="logout__header-p">Saliendo del panel de control del lugar donde los sueños de amor se hacen realidad.</p>
     </div>
 
 </section>

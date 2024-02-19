@@ -1,12 +1,31 @@
-// Funciones para el menu de los miembros de equipo
+// Funciones para las rutas.
+function documentInit() {
+    // Separamos los elementos de la URL por / y tomamos el último elemento de la ruta.
+    let route = window.location.pathname.split('/')[1];
 
+    // Con base al valor obtenido del último elemento, desplegamos un panel de inicio.
+    if(route == 'panel') {
+
+        panelMenu();
+        addPanel();
+
+    } else {
+        clientMenu();
+    }
+}
+
+// Funciones para el menu de los miembros.
 function panelMenu() {
+
+    // Comprobación básica para ver cuál es la dimensión de la pantalla
 
     if(document.getElementById('content-panel')) {
 
         if(window.screen.width < 1366) {
+            // Desplegamos el panel para mobile.
             panelMobile();
         } else {
+            // Deslegamos el panel para desktop.
             panelDesktop();
         }
 
@@ -14,32 +33,32 @@ function panelMenu() {
 
 }
 
-// Función para el menú de los clientes
-
+// Función para el menú de los clientes.
 function clientMenu() {
 
+    // Comprobación básica para ver cuál es el ancho de la pantalla
     if(window.screen.width < 1366) {
+        // Depslegar el menú para mobile.
         clientMobile();
     } else {
+        // Desplegar el menú para desktop.
         clientDesktop();
     }
 
 }
 
-// Members
+// MEMBERS
 
+// Panel para mobile.
 function panelMobile() {
 
     // Creación del header del Panel Mobile
-
     createElement('header', 'member-menu member-menu--mobile', 'panel-mobile', '');
 
-    // Insersión del elemento ul en el header para el Panel Mobile
-
+    // Insersión del elemento principal que contendrá las opciones del panel mobile.
     createElement('ul', 'member-menu--mobile-ul', 'ul-mobile', '', document.getElementById('panel-mobile'));
 
-    // Insersión de los elementos li en el ul para el Panel Mobile
-
+    // Insersión de los elementos secundarios que serán hijos del elemento principal.
     let itemsPanelMobile = [
         {
             type: 'li',
@@ -59,52 +78,70 @@ function panelMobile() {
         }
     ];
 
+    // Iteramos sobre el elemento padre para insertar uno a uno los elementos hijos en el header.
     itemsPanelMobile.forEach(item => {
 
         createElement(item.type, item.class, item.id, item.content, document.getElementById('ul-mobile'));
 
     });
 
+    // Le agregamos una clase para animar el header al momento de entrar en el sitio de gestión de la Boutique.
     document.getElementById('panel-mobile').classList.add('member-menu--up');
+    // Añadimos un escuchador de eventos al momento de hacer tap en los elementos del header.
     document.getElementById('ul-mobile').addEventListener('click', tap);
 
 }
 
+// Panel para desktop.
 function panelDesktop() {
     console.log('Este panel es Desktop');
 }
 
-// CLients
+function addPanel() {
 
-function clientMobile() {
-    console.log('Este menu es mobile');
-}
+    document.getElementById('panel-mobile').addEventListener('click', function(e) {
+        e.preventDefault();
 
-function clientDesktop() {
-    console.log('Este menu es Desktop');
+        // Comprobamos que el miembro le dé click a uno de los botones del header principal.
+        if(e.target.classList.contains('add-icon') && !document.getElementById('control-panel')) {
+            showAddPanel();
+        } else if(e.target.classList.contains('burguer-icon')) {
+            showControlPanel();
+        } else {
+            showStorePanel();
+        }
+
+    });
+    
 }
 
 // Paneles de control
 
 function showAddPanel() {
 
+    // Inmobilizamos el scroll vertical.
     document.body.style.overflowY = 'hidden';
 
+    // Superposición de cortina para bloquear capa de interfaz
+    createElement('div', 'curtain-panel', 'curtain-panel', '');
+    // Superposición de panel para dar acceso a las opciones de creación
     createElement('div', 'control-panel', 'control-panel', '');
+    // Desarrollo
     const controlPanel = document.getElementById('control-panel');
 
+    // Insertamos los elementos al panel de control desplegado.
     let itemsControlPanel = [
         {type: 'div', class: 'control-panel__item', id: '', content: '<h3><i class="fa-solid fa-plus"></i> Nuevo</h3>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="prd"><i class="fa-solid fa-bag-shopping"></i> Producto</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="cat"><i class="fa-solid fa-heart"></i> Categoría</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="compr"><i class="fa-regular fa-credit-card"></i> Compra</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="prs"><i class="fa-solid fa-mug-saucer"></i> Presupuesto</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="ins"><i class="fa-solid fa-star"></i> Inspo</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="pst"><i class="fa-solid fa-newspaper"></i> Post</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="feath"><i class="fa-solid fa-feather"></i> Feather</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="ad"><i class="fa-solid fa-bullhorn"></i> Anuncio</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="alid"><i class="fa-solid fa-handshake"></i> Aliado</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="miem"><i class="fa-solid fa-user"></i> Miembro</button>'}
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="new-prd"><i class="fa-solid fa-bag-shopping"></i> Producto</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="new-cat"><i class="fa-solid fa-heart"></i> Categoría</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="new-compr"><i class="fa-regular fa-credit-card"></i> Compra</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="new-prs"><i class="fa-solid fa-mug-saucer"></i> Presupuesto</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="new-ins"><i class="fa-solid fa-star"></i> Inspo</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="new-pst"><i class="fa-solid fa-newspaper"></i> Post</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="new-feath"><i class="fa-solid fa-feather"></i> Feather</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="new-ad"><i class="fa-solid fa-bullhorn"></i> Anuncio</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="new-alid"><i class="fa-solid fa-handshake"></i> Aliado</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="new-miem"><i class="fa-solid fa-user"></i> Miembro</button>'}
     ];
 
     itemsControlPanel.forEach(item => {
@@ -113,13 +150,14 @@ function showAddPanel() {
 
     });
 
-    createElement('div', 'curtain-panel', 'curtain-panel', '');
+    // Incrustamos el panel invocado con un slide hacia la derecha.
     document.getElementById('control-panel').classList.add('control-panel--slide');
 
+    // Agregamos un evento escuchador que permita borrar el panel de control desplegado en caso de retroceder.
     document.addEventListener('click', function(e) {
-
         e.preventDefault();
 
+        // Ejecutamos una acción en el área invocada según el área clicada pro el miembro.
         if(e.target.classList.contains('curtain-panel')) {
 
             document.body.style.overflowY = 'scroll';
@@ -128,9 +166,7 @@ function showAddPanel() {
             removeElement('curtain-panel');
 
         } else if(e.target.classList.contains('button-panel')) {
-
             tap(e, 'button-panel');
-
         }
 
     });
@@ -146,13 +182,13 @@ function showControlPanel() {
 
     let itemsControlPanel = [
         {type: 'div', class: 'control-panel__item', id: '', content: '<h3><i class="fa-solid fa-square-poll-vertical"></i> Panel</h3>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="prd"><i class="fa-solid fa-people-group"></i> Aliados</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="cat"><i class="fa-solid fa-atom"></i>Centro de anuncios</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="compr"><i class="fa-solid fa-feather"></i> Feather</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="prs"><i class="fa-solid fa-bell"></i> Notificaciones</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="ins"><i class="fa-solid fa-sitemap"></i> Equipo</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="pst"><i class="fa-solid fa-chart-line"></i> Actividad</button>'},
-        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel button-panel--logout" value="logut"><i class="fa-solid fa-door-open"></i> Salir</button>'}
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="panel-prd"><i class="fa-solid fa-people-group"></i> Aliados</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="panel-cat"><i class="fa-solid fa-atom"></i>Centro de anuncios</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="panel-compr"><i class="fa-solid fa-feather"></i> Feather</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="panel-prs"><i class="fa-solid fa-bell"></i> Notificaciones</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="panel-ins"><i class="fa-solid fa-sitemap"></i> Equipo</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel" value="panel-pst"><i class="fa-solid fa-chart-line"></i> Actividad</button>'},
+        {type: 'div', class: 'control-panel__item', id: '', content: '<button class="button-panel button-panel--logout" value="panel-logut"><i class="fa-solid fa-door-open"></i> Salir</button>'}
     ];
 
     itemsControlPanel.forEach(item => {
@@ -189,29 +225,39 @@ function showStorePanel() {
     console.log('store');
 }
 
-// Interfaces
+// CLIENTS
+
+function clientMobile() {
+    console.log('Este menu es mobile');
+}
+
+function clientDesktop() {
+    console.log('Este menu es Desktop');
+}
+
+// INTERFACES
 
 // Mostrar interfaz
 
-function showInterface(value) {
-
+function showInterface(type, value) {
     loadingView();
-    window.location.assign(`${object.url_create}?type=${value}`);
-
+    // Con base al valor capturado por el element contenido en el panel desplegado, redirigimos a una interfaz.
+    if(value == 'logut') {
+        window.location.assign(`${object.url_logout}`);
+    } else {
+        window.location.assign(`${object.url_create}?type=${value}&interface=${type}`);
+    }
 }
 
-// Mostrar Popup de interfaz
-
-function interfaceView(ID) {
+// Funciones relacionadas con el archivo create.js
+function interfaceView(interface, type) {
 
     let body = '';
 
-    // 1. Atrapamos la URL del sitio
-    let urlCreate = new URL(window.location.href);
-    // 2. Atrapamos el parámetro de la URL capturada 
-    let type      = urlCreate.search.split('=')[1];
+    // 1. Atrapamos el parámetro de la URL capturada 
+    // let type      = urlCreate.search.split('&')[1];
 
-    // 3. Manipulamos el parámetro atrapado
+    // 2. Manipulamos el parámetro atrapado
     if(type == 'prd') {
 
         body = ``;
@@ -233,81 +279,83 @@ function interfaceView(ID) {
     } else if(type == 'alid') {
 
     } else if(type == 'miem') {
+// Continue...
+        createElement('div', 'interfa');
 
         let body = `
 
-            <div class="new__form-bd">
+            <div class="interface__form-bd">
 
-                <h2 class="new__form-bd-title">Comencemos con lo básico para crear un nuevo miembro...</h1>
+                <h2 class="interface__form-bd-title">Comencemos con lo básico para crear un nuevo miembro...</h1>
 
-                <label class="new__form-bd-label" for="member-name"></label>
-                <input class="new__form-bd-input--name" id="member-name" placeholder="Nombre del nuevo miembro" name="member[name]" type="text" />
+                <label class="interface__form-bd-label" for="member-name"></label>
+                <input class="interface__form-bd-input--name" id="member-name" placeholder="Nombre del nuevo miembro" name="member[name]" type="text" />
         
-                <label class="new__form-bd-label" for="member-email"></label>
-                <span class="new__form-bd-span">Email</span>
-                <input class="new__form-bd-input" id="member-email" name="member[email]" placeholder="example@example.com" type="email" />
+                <label class="interface__form-bd-label" for="member-email"></label>
+                <span class="interface__form-bd-span">Email</span>
+                <input class="interface__form-bd-input" id="member-email" name="member[email]" placeholder="example@example.com" type="email" />
 
-                <label class="new__form-bd-label" for="member-password"></label>
-                <span class="new__form-bd-span">Contraseña</span>
+                <label class="interface__form-bd-label" for="member-password"></label>
+                <span class="interface__form-bd-span">Contraseña</span>
 
-                <div class="new__form-bd-superlabel">
-                    <input class="new__form-bd-superlabel-input" id="member-password" placeholder="coloca una contraseña aquí" name="member[password]" type="password" />
+                <div class="interface__form-bd-superlabel">
+                    <input class="interface__form-bd-superlabel-input" id="member-password" placeholder="coloca una contraseña aquí" name="member[password]" type="password" />
                     <i id="reveal" class="fa-solid fa-eye"></i>
                 </div>
         
             </div>
 
-            <div class="new__form-roles">
+            <div class="interface__form-roles">
 
-                <h2 class="new__form-roles-title">Ahora, elije el rol que tendrá el nuevo miembro...</h1>
+                <h2 class="interface__form-roles-title">Ahora, elije el rol que tendrá el nuevo miembro...</h1>
 
-                <label class="new__form-roles-label--role" for="admin">
-                    <article class="new__form-roles-label--role-article">
+                <label class="interface__form-roles-label--role" for="admin">
+                    <article class="interface__form-roles-label--role-article">
                         <i class="fa-solid fa-flag"></i>
-                        <div class="new__form-roles-label--role-article">
+                        <div class="interface__form-roles-label--role-article">
                             <h3>Administrador</h3>
                             <p>Obtén un panorama completo de la actividad de la boutique, gestiona miembros y aprueba permisos.</p>
                         </div>
                     </article>
                 </label>
-                <input id="admin" name="member[role]" class="new__form-roles--checkbox" type="checkbox" value="admin" />
+                <input id="admin" name="member[role]" class="interface__form-roles--checkbox" type="checkbox" value="admin" />
 
-                <label class="new__form-roles-label--role" for="gestor">
-                    <article class="new__form-roles-label--role-article">
+                <label class="interface__form-roles-label--role" for="gestor">
+                    <article class="interface__form-roles-label--role-article">
                         <i class="fa-solid fa-person-dress"></i>
-                        <div class="new__form-roles-label--role-article">
+                        <div class="interface__form-roles-label--role-article">
                             <h3>Gestor</h3>
                             <p>Crea y edita vestidos, utiliza la pasarela de pago de Angelus Event Center
                             y guía a tus clientes a obtener el mejor modelo.</p>
                         </div>
                     </article>
                 </label>
-                <input id="gestor" name="member[role]" class="new__form-roles--checkbox" type="checkbox" value="gestor" />
+                <input id="gestor" name="member[role]" class="interface__form-roles--checkbox" type="checkbox" value="gestor" />
 
-                <label class="new__form-roles-label--role" for="ejecutivo">
-                    <article class="new__form-roles-label--role-article">
+                <label class="interface__form-roles-label--role" for="ejecutivo">
+                    <article class="interface__form-roles-label--role-article">
                         <i class="fa-solid fa-user-tie"></i>
-                        <div class="new__form-roles-label--role-article">
+                        <div class="interface__form-roles-label--role-article">
                             <h3>Ejecutivo</h3>
                             <p>Presupuesta clientes y comparte los resultados.</p>
                         </div>
                     </article>
                 </label>
-                <input id="ejecutivo" name="member[role]" class="new__form-roles--checkbox" type="checkbox" value="ejecutivo" />
+                <input id="ejecutivo" name="member[role]" class="interface__form-roles--checkbox" type="checkbox" value="ejecutivo" />
 
-                <label class="new__form-roles-label--role" for="planificador">
-                    <article class="new__form-roles-label--role-article">
+                <label class="interface__form-roles-label--role" for="planificador">
+                    <article class="interface__form-roles-label--role-article">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        <div class="new__form-roles-label--role-article">
+                        <div class="interface__form-roles-label--role-article">
                             <h3>Planificador</h3>
                             <p>Toma el control de la revista Angelus y todos los medios de comunicación del sitio.</p>
                         </div>
                     </article>
                 </label>
-                <input id="planificador" name="member[role]" class="new__form-roles--checkbox" type="checkbox" value="planificador" />
+                <input id="planificador" name="member[role]" class="interface__form-roles--checkbox" type="checkbox" value="planificador" />
 
-                <label class="new__form-roles-label--role" for="anunciante">
-                    <article class="new__form-roles-label--role-article">
+                <label class="interface__form-roles-label--role" for="anunciante">
+                    <article class="interface__form-roles-label--role-article">
                         <i class="fa-solid fa-bullhorn"></i>
                         <div>
                             <h3>Anunciante</h3>
@@ -315,63 +363,33 @@ function interfaceView(ID) {
                         </div>
                     </article>
                 </label>
-                <input id="anunciante" name="member[role]" class="new__form-roles--checkbox" type="checkbox" value="anunciante" />
+                <input id="anunciante" name="member[role]" class="interface__form-roles--checkbox" type="checkbox" value="anunciante" />
 
-                <button type="submit" id="create-new-member" class="new__form-roles-button">Crear miembro</button>
+                <button type="submit" id="create-new-member" class="interface__form-roles-button">Crear miembro</button>
     
             </div>
         `;
 
         // Creación del formulario.
-        createForm('new', 'post', 'member-form', 'new__form', body);
+        createForm(interface, 'post', 'member-form', 'new__form', body);
 
     } else {
-
-        body = `
-    
-            <span>¿Seguro que deseas salir del panel de control?</span>
-            <div class="new__goback-buttons">
-                <button class="goback" id="goback">Si, salir ahora</button>
-                <button class="goback" id="gocancel">No, cancelar</button>
-            </div>
-
-        `;
-
-        createElement('div', 'new__goback', 'interface-goback', body, document.getElementById(ID));
-        // Este script afecta el panel de opciones que se le muestran al cliente antes de salir de la sesión. 
-        document.getElementById('interface-goback').addEventListener('click', function(e) {
-            if(e.target.classList.contains('goback')) {
-
-                if(e.target.id == 'goback') {
-
-                    let curtain = '<i class="fa-solid fa-circle-notch"></i>';
-
-                    createElement('div', 'new__goback--curtain', 'interface-goback-curtain', curtain, document.getElementById('interface-goback'));
-
-                    fetch(`${object.url_api}/angelus/members/logout`, {
-                        method: 'GET'
-                    }).then(response => {
-
-                        if(response) {
-                            loadingView();
-                            location.assign(object.url_team);
-                        }
-
-                    });
-
-                } else {
-
-                    document.getElementById('gocancel').remove();
-                    document.getElementById('interface').remove();
-
-                }
-
-            }
-        });
-
-
+        logout();
     }
 
+}
+
+function logout() {
+    fetch(`${object.url_api}/angelus/members/logout`, {
+        method: 'GET'
+    }).then(response => {
+
+        if(response) {
+            loadingView();
+            location.assign(object.url_team);
+        }
+
+    });
 }
 
 // Función para crear un elemento
@@ -391,7 +409,7 @@ function createElement(type, c, i = '', content = '', father = document.body) {
 
 }
 
-function createForm(fatherID, method = 'get', i, c, body = '') {
+function createForm(interface, method = 'get', i, c, body = '') {
 
     const form = document.createElement('form');
     form.setAttribute('action', './');
@@ -399,7 +417,7 @@ function createForm(fatherID, method = 'get', i, c, body = '') {
     form.setAttribute('id', i);
     form.setAttribute('class', c);
     form.innerHTML = body;
-    document.getElementById(fatherID).appendChild(form);
+    document.getElementById(interface).appendChild(form);
     // Activamos los eventos del formulario
     memberInputs('member-password', 'reveal');
 
@@ -442,54 +460,19 @@ function removeElement(id) {
 
 }
 
-// FUNCIONES PARA LAS RUTAS
-
-function documentInit() {
-    let route = window.location.pathname.split('/')[1];
-
-    if(route == 'panel') {
-        panelMenu();
-        addPanel();
-    } else {
-        clientMenu();
-    }
-}
-
-function addPanel() {
-
-    document.getElementById('panel-mobile').addEventListener('click', function(e) {
-
-        e.preventDefault();
-
-        if(e.target.classList.contains('add-icon') && !document.getElementById('control-panel')) {
-            showAddPanel();
-        } else if(e.target.classList.contains('burguer-icon')) {
-            showControlPanel();
-        } else {
-            showStorePanel();
-        }
-
-    });
-    
-}
-
 // ANIMACIONES
 
-function buttonEvents(backbuttonID, oneSection = '', twoSection = '') {
-
-    backButtonEvent(backbuttonID, oneSection, twoSection);
-
-}
-
+// Tap de los botones.
 function tap(e, c = '') {
-    
     e.preventDefault();
 
     let icon = e.target.id;
-
+    // Dependiendo del tipo de ícono que está en el header, agregamos una animación para darle vida al momento de hacer tap.
     if(icon == 'add-icon') {
 
+        // Aquí agregamos una clase para incrustar la animación.
         document.getElementById(icon).classList.add('spin');
+        // Aquí procedemos a quitar la clase agregada para quitar la animación y volver a reutilizar la clase.
         setTimeout(() => {
             document.getElementById(icon).classList.remove('spin');
         }, 550);
@@ -514,8 +497,10 @@ function tap(e, c = '') {
 
 }
 
+// Cargador.
 function loadingView() {
 
+    // Creamos un elemento "nulo" para insertar en los tiempos de carga.
     const bodyHome = `
                         
             <section id="authenticate" class="authenticate">
@@ -554,6 +539,12 @@ function loadingView() {
 
 }
 
+function buttonEvents(backbuttonID, oneSection = '', twoSection = '') {
+
+    backButtonEvent(backbuttonID, oneSection, twoSection);
+
+}
+
 function moveLeft(element) {
     element.classList.add('move-left');
 } 
@@ -567,7 +558,6 @@ function moveRight(element) {
 }
 
 // Eventos del formulario
-
 function memberInputs(inputID = '', itemID = '') {
 
     // Script del cmapo contraseña

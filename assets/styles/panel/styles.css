@@ -1160,7 +1160,7 @@
   text-align: center;
 }
 
-.new {
+.interface {
   position: relative;
   z-index: 0;
   width: 100%;
@@ -1180,7 +1180,7 @@
   gap: 30px;
   overflow-x: hidden;
 }
-.new__form {
+.interface__form {
   position: relative;
   width: 100%;
   min-width: 320px;
@@ -1205,7 +1205,7 @@
   gap: 15px;
   overflow-x: hidden;
 }
-.new__form-bd, .new__form-roles {
+.interface__form-bd, .interface__form-roles {
   position: relative;
   width: 90%;
   min-width: 288px;
@@ -1224,7 +1224,7 @@
           justify-content: center;
   display: flex;
 }
-.new__form-bd-title, .new__form-roles-title {
+.interface__form-bd-title, .interface__form-roles-title {
   position: relative;
   width: 100%;
   min-width: 288px;
@@ -1236,11 +1236,11 @@
   color: black;
   font-family: "Montserrat", sans-serif;
 }
-.new__form-bd-label, .new__form-roles-label {
+.interface__form-bd-label, .interface__form-roles-label {
   width: 100%;
   height: auto;
 }
-.new__form-bd-superlabel, .new__form-roles-superlabel {
+.interface__form-bd-superlabel, .interface__form-roles-superlabel {
   width: 100%;
   max-width: 500px;
   border: 1px solid #dadada;
@@ -1256,7 +1256,7 @@
       -ms-flex-align: center;
           align-items: center;
 }
-.new__form-bd-superlabel-input, .new__form-roles-superlabel-input {
+.interface__form-bd-superlabel-input, .interface__form-roles-superlabel-input {
   width: 95%;
   border: none;
   font-family: "Montserrat", sans-serif;
@@ -1264,23 +1264,23 @@
   font-size: 1.5rem;
   color: black;
 }
-.new__form-bd-superlabel-input:hover, .new__form-roles-superlabel-input:hover {
+.interface__form-bd-superlabel-input:hover, .interface__form-roles-superlabel-input:hover {
   outline: none;
 }
-.new__form-bd-superlabel-input:active, .new__form-roles-superlabel-input:active {
+.interface__form-bd-superlabel-input:active, .interface__form-roles-superlabel-input:active {
   background-color: white;
 }
-.new__form-bd-superlabel > i, .new__form-roles-superlabel > i {
+.interface__form-bd-superlabel > i, .interface__form-roles-superlabel > i {
   font-size: 1.5rem;
   color: #c7c7c7;
 }
-.new__form-bd-span, .new__form-roles-span {
+.interface__form-bd-span, .interface__form-roles-span {
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-size: 1.7rem;
   color: black;
 }
-.new__form-bd-input, .new__form-roles-input {
+.interface__form-bd-input, .interface__form-roles-input {
   width: 100%;
   max-width: 500px;
   border: 1px solid #dadada;
@@ -1291,10 +1291,10 @@
   font-size: 1.5rem;
   color: black;
 }
-.new__form-bd-input:hover, .new__form-roles-input:hover {
+.interface__form-bd-input:hover, .interface__form-roles-input:hover {
   outline: none;
 }
-.new__form-bd-input--name, .new__form-roles-input--name {
+.interface__form-bd-input--name, .interface__form-roles-input--name {
   width: 100%;
   height: auto;
   display: -webkit-box;
@@ -1309,28 +1309,28 @@
   color: black;
   font-family: "Montserrat", sans-serif;
 }
-.new__form-bd-input--name:hover, .new__form-roles-input--name:hover {
+.interface__form-bd-input--name:hover, .interface__form-roles-input--name:hover {
   outline: none;
 }
-.new__form-bd-input::-webkit-input-placeholder, .new__form-roles-input::-webkit-input-placeholder {
+.interface__form-bd-input::-webkit-input-placeholder, .interface__form-roles-input::-webkit-input-placeholder {
   color: rgb(192, 192, 192);
 }
-.new__form-bd-input::-moz-placeholder, .new__form-roles-input::-moz-placeholder {
+.interface__form-bd-input::-moz-placeholder, .interface__form-roles-input::-moz-placeholder {
   color: rgb(192, 192, 192);
 }
-.new__form-bd-input:-ms-input-placeholder, .new__form-roles-input:-ms-input-placeholder {
+.interface__form-bd-input:-ms-input-placeholder, .interface__form-roles-input:-ms-input-placeholder {
   color: rgb(192, 192, 192);
 }
-.new__form-bd-input::-ms-input-placeholder, .new__form-roles-input::-ms-input-placeholder {
+.interface__form-bd-input::-ms-input-placeholder, .interface__form-roles-input::-ms-input-placeholder {
   color: rgb(192, 192, 192);
 }
-.new__form-bd-input::placeholder, .new__form-roles-input::placeholder {
+.interface__form-bd-input::placeholder, .interface__form-roles-input::placeholder {
   color: rgb(192, 192, 192);
 }
-.new__form-bd-input:active, .new__form-roles-input:active {
+.interface__form-bd-input:active, .interface__form-roles-input:active {
   background-color: white;
 }
-.new__form-bd-button, .new__form-roles-button {
+.interface__form-bd-button, .interface__form-roles-button {
   display: inline-block;
   width: 90%;
   max-width: 205px;
@@ -1348,14 +1348,14 @@
   transition: transform 0.5s linear cubic-bezier(0.29, 0, 0.29, 1);
   transition: transform 0.5s linear cubic-bezier(0.29, 0, 0.29, 1), -webkit-transform 0.5s linear cubic-bezier(0.29, 0, 0.29, 1);
 }
-.new__form-bd-button:hover, .new__form-roles-button:hover {
+.interface__form-bd-button:hover, .interface__form-roles-button:hover {
   outline: none;
 }
-.new__form-bd-button:active, .new__form-roles-button:active {
+.interface__form-bd-button:active, .interface__form-roles-button:active {
   -webkit-transform: scale(0.98);
           transform: scale(0.98);
 }
-.new__form-roles {
+.interface__form-roles {
   position: relative;
   width: 90%;
   min-width: 288px;
@@ -1375,7 +1375,7 @@
   padding: 20px 0;
   gap: 10px;
 }
-.new__form-roles-label--role {
+.interface__form-roles-label--role {
   width: 100%;
   height: auto;
   border: 1px solid rgb(221, 221, 221);
@@ -1392,7 +1392,7 @@
   transition: transform 0.5s cubic-bezier(0.12, 0.12, 0, 1);
   transition: transform 0.5s cubic-bezier(0.12, 0.12, 0, 1), -webkit-transform 0.5s cubic-bezier(0.12, 0.12, 0, 1);
 }
-.new__form-roles-label--role-article {
+.interface__form-roles-label--role-article {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1402,12 +1402,12 @@
           align-items: center;
   font-family: "Work Sans", sans-serif;
 }
-.new__form-roles-label--role-article > i {
+.interface__form-roles-label--role-article > i {
   display: inline-block;
   font-size: 4rem;
   color: #f3c56a;
 }
-.new__form-roles-label--role-article > div {
+.interface__form-roles-label--role-article > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1423,25 +1423,25 @@
       -ms-flex-align: start;
           align-items: flex-start;
 }
-.new__form-roles-label--role-article > div > h3 {
+.interface__form-roles-label--role-article > div > h3 {
   font-size: 2rem;
   color: #f3c56a;
 }
-.new__form-roles-label--role-article > div > p {
+.interface__form-roles-label--role-article > div > p {
   display: inline-block;
   font-size: 1.5rem;
   color: rgb(73, 73, 73);
 }
-.new__form-roles-label--role-active {
+.interface__form-roles-label--role-active {
   border: 1px solid #806737;
   background-color: #fcfcfc;
   -webkit-transform: scale(0.98);
           transform: scale(0.98);
 }
-.new__form-roles--checkbox {
+.interface__form-roles--checkbox {
   display: none;
 }
-.new__back {
+.interface__back {
   position: fixed;
   z-index: 3;
   left: 0;
@@ -1461,7 +1461,7 @@
       -ms-flex-align: center;
           align-items: center;
 }
-.new__back > i {
+.interface__back > i {
   display: inline-block;
   color: white;
   font-size: 3rem;
@@ -1470,7 +1470,7 @@
   transition: transform 0.25s cubic-bezier(0.07, 0.44, 0.28, 1);
   transition: transform 0.25s cubic-bezier(0.07, 0.44, 0.28, 1), -webkit-transform 0.25s cubic-bezier(0.07, 0.44, 0.28, 1);
 }
-.new__back:active i {
+.interface__back:active i {
   -webkit-transform: scale(0.5);
           transform: scale(0.5);
 }

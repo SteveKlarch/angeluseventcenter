@@ -32,7 +32,8 @@ add_action('wp_enqueue_scripts', function() {
     wp_register_script('functions', get_stylesheet_directory_uri() . '/assets/scripts/functions.js', array(), false, true);
     wp_enqueue_script('signon', get_stylesheet_directory_uri() . '/assets/scripts/signon.js', array('functions'), false, true);
     wp_enqueue_script('route', get_stylesheet_directory_uri() . '/assets/scripts/route.js', array('functions'), false, true);
-    wp_enqueue_script('interfaces', get_stylesheet_directory_uri() . '/assets/scripts/interfaces.js', array('functions'), false, true);
+    wp_enqueue_script('drivers', get_stylesheet_directory_uri() . '/assets/scripts/drivers.js', array('functions'), false, true);
+    wp_enqueue_script('interfaces', get_stylesheet_directory_uri() . '/assets/scripts/interface.js', array('functions'), false, true);
     wp_enqueue_script('logout', get_stylesheet_directory_uri() . '/assets/scripts/logout.js', array('functions'), false, true);
     wp_enqueue_script('create', get_stylesheet_directory_uri() . '/assets/scripts/create.js', array('functions'), false, true);
     wp_enqueue_script('new-member', get_stylesheet_directory_uri() . '/assets/scripts/new-member.js', array('functions'), false);
@@ -44,11 +45,24 @@ add_action('wp_enqueue_scripts', function() {
 
     // Localizador del archivo functions.js
 
+    wp_localize_script('drivers', 'driver', array(
+        'ck'    => 'ck_76d6c6a9d61995cf703df52f428b20e7c9b7150c',
+        'cs'    => 'cs_b06937596a9ff7b6bed8e307a7b3108fe31b15aa'
+    ));
+
+    wp_localize_script('interfaces', 'interface', array(
+        'ck'    => 'ck_76d6c6a9d61995cf703df52f428b20e7c9b7150c',
+        'cs'    => 'cs_b06937596a9ff7b6bed8e307a7b3108fe31b15aa'
+    ));
+
     wp_localize_script('functions', 'object', array(
         'url_home'          => home_url(),
         'url_api'           => home_url('wp-json'),
         'url_team'          => home_url('team'),
-        'url_create'        => home_url('panel/create')
+        'url_create'        => home_url('panel/create'),
+        'url_logout'        => home_url('logout'),
+        'ck'    => 'ck_76d6c6a9d61995cf703df52f428b20e7c9b7150c',
+        'cs'    => 'cs_b06937596a9ff7b6bed8e307a7b3108fe31b15aa'
     ));
 
     wp_localize_script('route', 'universal', array(
@@ -156,17 +170,7 @@ add_action('init', function() {
         [
             'role'          => 'admin',
             'display'       => 'Administrador de la Boutique',
-            'capabilities'  => array(
-                'delete_posts'           => true,
-                'delete_private_posts'   => true,
-                'delete_published_posts' => true,
-                'edit_posts'             => true,
-                'edit_other_posts'       => true,
-                'manage_categories'      => true,
-                'publish_posts'          => true,
-                'edit_pages'             => true,
-                'publish_pages'          => true
-            )
+            'capabilities'  => array_merge(get_role('administrator')->capabilities, get_role('shop_manager')->capabilities)
         ]
     );
 
@@ -296,8 +300,10 @@ function authenticate_member() {
 
 function new_member($request) {
 
+    $firstName = explode(' ', wp_unslash($request['member']['name']), true)[0];
+    $lastName = explode(' ', wp_unslash($request['member']['name']), true)[1];
     $email = stripslashes(sanitize_user(wp_unslash($request['member']['email']), true));
-    $username  = stripslashes(sanitize_user(wp_unslash($request['member']['name']), true));
+    $username  = strtolower(implode('-', explode(' ', stripslashes(sanitize_user(wp_unslash($request['member']['name']), true)))));
     $password = stripslashes(wp_unslash($request['member']['password']));
     $role     = $request['member']['role'];  
 
@@ -347,6 +353,8 @@ function new_member($request) {
 
     $newUser = array(
         'user_login'            => $email,
+        'first_name'            => $firstName,
+        'last_name'             => $lastName,
         'nickname'              => $username,
         'user_pass'             => $password,
         'user_email'            => $email,
