@@ -15,13 +15,13 @@ function showEvents() {
 
 function rolesClick() {
 
-    let roleArray = document.getElementsByClassName('new__form-roles-label--role');
+    let roleArray = document.getElementsByClassName('interface__form-roles-label--role');
 
     for(let i = 0; i < roleArray.length; i++) {
 
         roleArray[i].addEventListener('click', function(e) {
 
-            roleArray[i].classList.toggle('new__form-roles-label--role-active');
+            roleArray[i].classList.toggle('interface__form-roles-label--role-active');
 
         });
 
@@ -32,7 +32,7 @@ function rolesClick() {
 function showBackButton() {
 
     // Creamos el botón para back para retroceder con el valor back-home.
-    const backButton = createButton('new', 'button', 'back-home', 'new-member-back-button', 'new__back', '<i class="fa-solid fa-arrow-left"></i>');
+    const backButton = createButton('interface', 'button', 'back-home', 'new-member-back-button', 'interface__back', '<i class="fa-solid fa-arrow-left"></i>');
     backButton.classList.add('show-up');
 
 }

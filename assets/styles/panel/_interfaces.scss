@@ -277,121 +277,121 @@
     animation-fill-mode: forwards;
 }
 
-.interface {
-    position: fixed;
-    z-index: 7;
-    top: 0;
-    bottom: 0;
-    left: 100%;
-    right: 0;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+// .null {
+//     position: fixed;
+//     z-index: 7;
+//     top: 0;
+//     bottom: 0;
+//     left: 100%;
+//     right: 0;
+//     background-color: white;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
 
-    &__goback {
+//     &__goback {
 
-        width: 90%;
-        min-width: 288px;
-        height: auto;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+//         width: 90%;
+//         min-width: 288px;
+//         height: auto;
+//         margin: 0 auto;
+//         display: flex;
+//         flex-direction: column;
+//         gap: 10px;
 
-        & > span {
-            display: inline-block;
-            font-size: 2rem;
-            font-weight: 600;
-            font-family: 'Work Sans', sans-serif;
-            color: black;
-            text-align: center;
-        }
+//         & > span {
+//             display: inline-block;
+//             font-size: 2rem;
+//             font-weight: 600;
+//             font-family: 'Work Sans', sans-serif;
+//             color: black;
+//             text-align: center;
+//         }
 
-        &-buttons {
+//         &-buttons {
 
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+//             display: flex;
+//             gap: 10px;
+//             justify-content: center;
 
-            & > button {
-                border: none;
-                border-radius: 10px;
-                background-color: rgb(250, 250, 250);
-                padding: 10px;
-                font-family: 'Work Sans', sans-serif;
-                font-weight: 500;
-                font-size: 1.3rem
-            }
+//             & > button {
+//                 border: none;
+//                 border-radius: 10px;
+//                 background-color: rgb(250, 250, 250);
+//                 padding: 10px;
+//                 font-family: 'Work Sans', sans-serif;
+//                 font-weight: 500;
+//                 font-size: 1.3rem
+//             }
 
-        }
+//         }
 
-        &--curtain {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: white;
-            opacity: .8;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+//         &--curtain {
+//             position: fixed;
+//             top: 0;
+//             bottom: 0;
+//             left: 0;
+//             right: 0;
+//             background-color: white;
+//             opacity: .8;
+//             display: flex;
+//             flex-direction: column;
+//             justify-content: center;
+//             align-items: center;
 
-            & > i {
-                display: inline-block;
-                font-size: 3rem;
-                animation-name: rolling;
-                animation-duration: 1s;
-                animation-timing-function: cubic-bezier(.6,.01,.2,1);
-                animation-iteration-count: infinite;
-                color: #998D5D;
-            }
-        }
+//             & > i {
+//                 display: inline-block;
+//                 font-size: 3rem;
+//                 animation-name: rolling;
+//                 animation-duration: 1s;
+//                 animation-timing-function: cubic-bezier(.6,.01,.2,1);
+//                 animation-iteration-count: infinite;
+//                 color: #998D5D;
+//             }
+//         }
 
-        @keyframes rolling {
+//         @keyframes rolling {
 
-            0% {
-                rotate: 0deg;
-            } 100% {
-                rotate: 720deg;
-            }
+//             0% {
+//                 rotate: 0deg;
+//             } 100% {
+//                 rotate: 720deg;
+//             }
             
-        }
+//         }
 
-    }
+//     }
 
-    &__loader {
-        display: block;
-        width: 90%;
-        height: 90%;
-        margin: 0 auto;
-        border-radius: 10px;
-        background-color: rgb(238, 238, 238);
-        animation-name: loader;
-        animation-duration: 1s;
-        animation-timing-function: cubic-bezier(.15,-0.01,.18,1);
-        animation-iteration-count: infinite;
-    }
+//     &__loader {
+//         display: block;
+//         width: 90%;
+//         height: 90%;
+//         margin: 0 auto;
+//         border-radius: 10px;
+//         background-color: rgb(238, 238, 238);
+//         animation-name: loader;
+//         animation-duration: 1s;
+//         animation-timing-function: cubic-bezier(.15,-0.01,.18,1);
+//         animation-iteration-count: infinite;
+//     }
 
-    &--show {
-        animation-name: showInterface;
-        animation-duration: .25s;
-        animation-timing-function: cubic-bezier(.02,.31,.1,.98);
-        animation-iteration-count: 1;
-        animation-fill-mode: forwards;
-    }
+//     &--show {
+//         animation-name: showInterface;
+//         animation-duration: .25s;
+//         animation-timing-function: cubic-bezier(.02,.31,.1,.98);
+//         animation-iteration-count: 1;
+//         animation-fill-mode: forwards;
+//     }
 
-    &--remove {
-        animation-name: removeInterface;
-        animation-duration: 1s;
-        animation-timing-function: cubic-bezier(.02,.31,.1,.98);
-        animation-iteration-count: 1;
-        animation-fill-mode: forwards;
-    }
+//     &--remove {
+//         animation-name: removeInterface;
+//         animation-duration: 1s;
+//         animation-timing-function: cubic-bezier(.02,.31,.1,.98);
+//         animation-iteration-count: 1;
+//         animation-fill-mode: forwards;
+//     }
 
-}
+// }
 
 .show-up {
     animation-name: buttonShowUp;

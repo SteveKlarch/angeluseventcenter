@@ -3,7 +3,6 @@
 require_once(get_template_directory() . '/woocommerce-functions.php');
 
 // Personalización del tema
-
 add_action('wp_enqueue_scripts', function() {
 
     // Fuentes de letra
@@ -211,7 +210,6 @@ add_action('wp_footer', function() {
 });
 
 // Funciones de la REST API de Angelus Centro D' Eventos
-
 function angelus_signon($request) {
 
     session_start();
@@ -263,7 +261,6 @@ function angelus_signon($request) {
 }
 
 // Funciones generales
-
 function authenticate($userID) {
 
     return get_user_by('ID', $userID);
@@ -412,7 +409,6 @@ function assignCredentials($role) {
 }
 
 // Funcionalidades
-
 function aec_roles($roles) {
     foreach($roles as $role) {
 

@@ -253,6 +253,11 @@ function showInterface(type, value) {
 function interfaceView(interface, type) {
 
     let body = '';
+    // Capturamos el contenedor padre que contendrá todos los tipos de interfaces
+    const interfaceElement = document.getElementById('interface');
+
+    // Creación de un elemento contenedor.
+    createElement('div', 'interface__content', interface, '', interfaceElement);
 
     // 1. Atrapamos el parámetro de la URL capturada 
     // let type      = urlCreate.search.split('&')[1];
@@ -260,7 +265,93 @@ function interfaceView(interface, type) {
     // 2. Manipulamos el parámetro atrapado
     if(type == 'prd') {
 
-        body = ``;
+        body = `
+
+            <div class="interface__form">
+
+                <h2 class="interface__form-bd-title">Nuevo producto</h1>
+
+                <label class="interface__form-bd-label" for="member-name"></label>
+                <input class="interface__form-bd-input--name" id="member-name" placeholder="Nombre del nuevo miembro" name="member[name]" type="text" />
+        
+                <label class="interface__form-bd-label" for="member-email"></label>
+                <span class="interface__form-bd-span">Email</span>
+                <input class="interface__form-bd-input" id="member-email" name="member[email]" placeholder="example@example.com" type="email" />
+
+                <label class="interface__form-bd-label" for="member-password"></label>
+                <span class="interface__form-bd-span">Contraseña</span>
+
+                <div class="interface__form-bd-superlabel">
+                    <input class="interface__form-bd-superlabel-input" id="member-password" placeholder="coloca una contraseña aquí" name="member[password]" type="password" />
+                    <i id="reveal" class="fa-solid fa-eye"></i>
+                </div>
+        
+            </div>
+
+            <div class="interface__form-roles">
+
+                <h2 class="interface__form-roles-title">Ahora, elije el rol que tendrá el nuevo miembro...</h1>
+
+                <label class="interface__form-roles-label--role" for="admin">
+                    <article class="interface__form-roles-label--role-article">
+                        <i class="fa-solid fa-flag"></i>
+                        <div class="interface__form-roles-label--role-article">
+                            <h3>Administrador</h3>
+                            <p>Obtén un panorama completo de la actividad de la boutique, gestiona miembros y aprueba permisos.</p>
+                        </div>
+                    </article>
+                </label>
+                <input id="admin" name="member[role]" class="interface__form-roles--checkbox" type="checkbox" value="admin" />
+
+                <label class="interface__form-roles-label--role" for="gestor">
+                    <article class="interface__form-roles-label--role-article">
+                        <i class="fa-solid fa-person-dress"></i>
+                        <div class="interface__form-roles-label--role-article">
+                            <h3>Gestor</h3>
+                            <p>Crea y edita vestidos, utiliza la pasarela de pago de Angelus Event Center
+                            y guía a tus clientes a obtener el mejor modelo.</p>
+                        </div>
+                    </article>
+                </label>
+                <input id="gestor" name="member[role]" class="interface__form-roles--checkbox" type="checkbox" value="gestor" />
+
+                <label class="interface__form-roles-label--role" for="ejecutivo">
+                    <article class="interface__form-roles-label--role-article">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <div class="interface__form-roles-label--role-article">
+                            <h3>Ejecutivo</h3>
+                            <p>Presupuesta clientes y comparte los resultados.</p>
+                        </div>
+                    </article>
+                </label>
+                <input id="ejecutivo" name="member[role]" class="interface__form-roles--checkbox" type="checkbox" value="ejecutivo" />
+
+                <label class="interface__form-roles-label--role" for="planificador">
+                    <article class="interface__form-roles-label--role-article">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <div class="interface__form-roles-label--role-article">
+                            <h3>Planificador</h3>
+                            <p>Toma el control de la revista Angelus y todos los medios de comunicación del sitio.</p>
+                        </div>
+                    </article>
+                </label>
+                <input id="planificador" name="member[role]" class="interface__form-roles--checkbox" type="checkbox" value="planificador" />
+
+                <label class="interface__form-roles-label--role" for="anunciante">
+                    <article class="interface__form-roles-label--role-article">
+                        <i class="fa-solid fa-bullhorn"></i>
+                        <div>
+                            <h3>Anunciante</h3>
+                            <p>Crea y gestiona anuncios en el sitio de Angelus.</p>
+                        </div>
+                    </article>
+                </label>
+                <input id="anunciante" name="member[role]" class="interface__form-roles--checkbox" type="checkbox" value="anunciante" />
+
+                <button type="submit" id="create-new-member" class="interface__form-roles-button">Crear miembro</button>
+    
+            </div>
+        `;
 
     } else if(type == 'cat') {
 
@@ -279,10 +370,8 @@ function interfaceView(interface, type) {
     } else if(type == 'alid') {
 
     } else if(type == 'miem') {
-// Continue...
-        createElement('div', 'interfa');
 
-        let body = `
+        body = `
 
             <div class="interface__form-bd">
 
@@ -371,7 +460,7 @@ function interfaceView(interface, type) {
         `;
 
         // Creación del formulario.
-        createForm(interface, 'post', 'member-form', 'new__form', body);
+        createForm(interface, 'post', 'member-form', 'interface__form', body);
 
     } else {
         logout();
@@ -409,7 +498,7 @@ function createElement(type, c, i = '', content = '', father = document.body) {
 
 }
 
-function createForm(interface, method = 'get', i, c, body = '') {
+function createForm(interfaceID, method = 'get', i, c, body = '') {
 
     const form = document.createElement('form');
     form.setAttribute('action', './');
@@ -417,7 +506,7 @@ function createForm(interface, method = 'get', i, c, body = '') {
     form.setAttribute('id', i);
     form.setAttribute('class', c);
     form.innerHTML = body;
-    document.getElementById(interface).appendChild(form);
+    document.getElementById(interfaceID).appendChild(form);
     // Activamos los eventos del formulario
     memberInputs('member-password', 'reveal');
 
